@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Online shop</title>
+</head>
+
+<body>
+{% include 'navbar.html' %}
+<link href="navbar.html" rel="import" />
+  <form method="post">
+    <label>Your email is: {{ email }}</label><br>
+    <input type="email" name="email" required>New e-mail</input><br>
+    <input type="password" name="password" required>New password</input><br>
+    <input type="submit">
+  </form>
+</body>
+</html>
