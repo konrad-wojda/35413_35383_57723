@@ -1,0 +1,20 @@
+<form
+  (ngSubmit)="submitForm()"
+  [formGroup]="form"
+  autocomplete="off"
+  class="container"
+>
+  <div *ngFor="let value of properties">
+    <label>{{ value?.label }}</label>
+    <button (click)="reverse(value?.editingName)" type="button">
+      Change value
+    </button>
+    <input
+      type="{{ value?.type }}"
+      [placeholder]="value?.placeholder"
+      [formControlName]="value?.formControlName"
+      [hidden]="!value?.isVisible"
+    />
+  </div>
+  <button type="submit" class="submit">Save changes</button>
+</form>
