@@ -85,7 +85,7 @@ async def delete_user(form_data: schemas.UserPasswords, db: _Session):
     db.execute(
         update(UserModel).
         where(UserModel.user_id == user.user_id).
-        values(email="",
+        values(email=user.user_id,
                hashed_password="",
                first_name="",
                last_name="",
