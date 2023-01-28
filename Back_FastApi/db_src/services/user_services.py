@@ -68,6 +68,7 @@ async def get_current_user(
 
 async def update_user(form_data: schemas.UserEdit, db: _Session):
     user = await get_current_user(form_data.token, db)
+    form_data.hashed_password = hash.bcrypt.hash(form_data.hashed_password)
     del form_data.token
     if user['user_id'] == form_data.user_id:
         db.execute(
