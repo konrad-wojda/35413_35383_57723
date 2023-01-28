@@ -1,11 +1,11 @@
 from sqlalchemy import Integer, String, DateTime, Float, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.schema import Column
-from db_src.database import Base
+from db_src.db_models.base_model import Base
 import datetime as dt
 
 
-class ProductModel(Base):
+class ProductModel:
     __tablename__ = 'products'
 
     product_id = Column(Integer, primary_key=True)
@@ -18,7 +18,7 @@ class ProductModel(Base):
     items_in_cart = relationship("CartModel", back_populates="product")
 
 
-class DiscountModel(Base):
+class DiscountModel:
     __tablename__ = 'discounts'
 
     discount_id = Column(Integer, primary_key=True)

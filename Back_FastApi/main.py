@@ -1,12 +1,10 @@
 from fastapi import FastAPI
 from fastapi.templating import Jinja2Templates
-import uvicorn
-from routes import router as api_router
 from fastapi.middleware.cors import CORSMiddleware
+from routes import router as api_router
+import uvicorn
 
 app = FastAPI()
-
-# Terminal: uvicorn main:app --reload --port=7000
 
 
 origins = [
@@ -24,11 +22,6 @@ app.add_middleware(
 app.include_router(api_router)
 
 templates = Jinja2Templates(directory="templates")
-
-
-# @app.get("")
-# def read_root(request: Request):
-#     return templates.TemplateResponse("main.html", {"request": request})
 
 if __name__ == '__main__':
     uvicorn.run(app, port=7000, host='127.0.0.1')
