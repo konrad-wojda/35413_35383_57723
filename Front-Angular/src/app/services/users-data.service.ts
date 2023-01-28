@@ -12,7 +12,7 @@ export class UsersDataService {
   getData(): Observable<UserDataResponse> {
     const token = localStorage.getItem('token');
     return this.http
-      .get<UserDataResponse>(`http://127.0.0.1:7000/api/user?token=${token}`)
+      .get<UserDataResponse>(`http://127.0.0.1:8000/api/user?token=${token}`)
       .pipe((data) => {
         return data;
       });

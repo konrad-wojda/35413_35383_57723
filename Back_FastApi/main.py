@@ -31,4 +31,4 @@ templates = Jinja2Templates(directory="templates")
 #     return templates.TemplateResponse("main.html", {"request": request})
 
 if __name__ == '__main__':
-    uvicorn.run(app, port=7000, host='127.0.0.1')
+    uvicorn.run(app, port=80, host='127.0.0.1')
