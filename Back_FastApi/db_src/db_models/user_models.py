@@ -2,7 +2,7 @@ from sqlalchemy import Integer, String, DateTime, Boolean, Index
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.schema import Column
 from passlib import hash as pswrd_hash
-from db_src.database import Base
+from db_src.db_models.base_model import Base
 import datetime as dt
 
 
@@ -24,7 +24,7 @@ class UserModel(Base):
     street_number = Column(Integer, nullable=False, default=0)
     flat_number = Column(Integer, nullable=False, default=0)
 
-    items_in_cart = relationship("CartModel", back_populates="user")
+    # items_in_cart = relationship("CartModel", back_populates="user")
 
     def __str__(self):
         return f'{self.user_id}: {self.email}'
