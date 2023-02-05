@@ -38,5 +38,8 @@ class PaymentHistoryModel:
     status = Column(String, nullable=False)
     amount = Column(Integer, nullable=False)
     modified_at = Column(DateTime, nullable=True)
+    user_id = Column(Integer, ForeignKey("users.user_id"))
 
     order = relationship("OrderModel", back_populates="payment", uselist=False)
+    user = relationship("UserModel", back_populates="payments_history")
+    
