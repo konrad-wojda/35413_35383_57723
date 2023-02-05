@@ -25,6 +25,7 @@ class UserModel(Base):
     flat_number = Column(Integer, nullable=False, default=0)
 
     # items_in_cart = relationship("CartModel", back_populates="user")
+    # payments_history = relationship("PaymentHistoryModel", back_populates="payments_history")
 
     def __str__(self):
         return f'{self.user_id}: {self.email}'
