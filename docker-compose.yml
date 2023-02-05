@@ -34,6 +34,8 @@ services:
       POSTGRES_PASSWORD: 123
       POSTGRES_DB: SklepInternetowy
       PGDAT: /var/lib/postgresql/data
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
     networks:
       - sklep-network
     ports:
@@ -44,3 +46,5 @@ services:
 networks:
   sklep-network:
     driver: bridge
+volumes:
+    postgres: {}
