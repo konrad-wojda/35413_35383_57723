@@ -19,3 +19,10 @@ class TestValidation(unittest.IsolatedAsyncioTestCase):
         assert await services.validate_passwords("AlaMaKota1", "AlaMaKota") is False
         assert await services.validate_passwords("AlaMaKota", "AlaMaKota2") is False
         assert await services.validate_passwords("AlaMaKota1", "AlaMaKota2") is False
+
+    @staticmethod
+    async def test_multiple_email():
+        assert await services.validate_email("AlaMaKota@sasad.compl") is False
+        assert await services.validate_email("AlaMaKota@sasad.com.pl")
+        assert await services.validate_email("AlaMaKota@sasadcom.pl")
+        assert await services.validate_email("AlaMaKotaAlaMaKotaAlaMaKotaAlaMaAlaMaKotaAlaMaKota@sasad.com.pl") is False

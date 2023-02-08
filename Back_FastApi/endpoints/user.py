@@ -49,7 +49,7 @@ async def get_user(token: str, db: _Session = Depends(get_db)):
 
 @router.patch("/user/edit")
 async def edit_user(form_data: schemas.UserEdit, db: _Session = Depends(get_db)):
-    await services.update_user(form_data, db)
+    return await services.update_user(form_data, db)
 
 
 @router.delete("/user/delete")

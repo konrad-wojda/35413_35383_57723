@@ -49,8 +49,8 @@ async def generate_token(
 
 async def create_token(user: UserModel):
     user_obj = schemas.UserPasswords.from_orm(user)
-    token = jwt.encode(user_obj.dict(), JWT_SECRET)
-
+    # token = jwt.encode(user_obj.dict(), JWT_SECRET)
+    token = jwt.encode({"user_id": user.user_id, "email": user.email}, JWT_SECRET)
     return dict(status_code=200, token=token, token_type="bearer", user_id=user.user_id)
 
 
@@ -68,6 +68,7 @@ async def get_current_user(
 
 async def update_user(form_data: schemas.UserEdit, db: _Session):
     user = await get_current_user(form_data.token, db)
+    form_data.hashed_password = hash.bcrypt.hash(form_data.hashed_password)
     del form_data.token
     if user['user_id'] == form_data.user_id:
         db.execute(
@@ -78,6 +79,7 @@ async def update_user(form_data: schemas.UserEdit, db: _Session):
             )
         )
         db.commit()
+    return dict(detail="User edited")
 
 
 async def delete_user(form_data: schemas.UserPasswords, db: _Session):
