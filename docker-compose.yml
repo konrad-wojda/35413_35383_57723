@@ -1,0 +1,50 @@
+version: '3.8'
+services:
+
+  angular-front:
+    build:
+      context: ./
+      dockerfile: ./docker/Dockerfile
+      target: nginx
+    container_name: frontend
+    networks:
+      - sklep-network
+    ports:
+      - 80:80
+
+  fast-api-back:
+    build:
+      context: ./
+      dockerfile: ./docker/Dockerfile
+      target: fast-api-back
+    container_name: backend
+    env_file:
+      - ./Back_FastApi/.env      
+    networks:
+      - sklep-network
+    ports:
+      - 8000:8000
+
+  postgresql-db:
+    container_name: db
+    image: postgres:14.6
+    restart: on-failure
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: SklepInternetowy
+      PGDAT: /var/lib/postgresql/data
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    networks:
+      - sklep-network
+    ports:
+      - 5432:5432
+
+    
+
+networks:
+  sklep-network:
+    driver: bridge
+volumes:
+    postgres: {}
