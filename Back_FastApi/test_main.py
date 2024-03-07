@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
-from db_src.database import get_db, override_get_db
-from db_src.db_models.user_models import UserModel
+from _intendant.db_src.database import get_db, override_get_db
+from _intendant.db_src.db_models.user_models import UserModel
 from passlib import hash
 from main import app
 import os
