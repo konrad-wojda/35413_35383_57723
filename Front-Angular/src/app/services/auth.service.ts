@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { catchError, tap } from 'rxjs/operators';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { ApiService } from './api.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -19,6 +19,9 @@ export class AuthService {
 
   login(email: string, password: string) {
     return this.apiService.login(email, password).pipe(
+      catchError((error) => {
+        return throwError(() => error);
+      }),
       tap((response: any) => {
         if (response.token === undefined) {
           this._isLoggedIn$.next(false);

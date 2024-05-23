@@ -3,9 +3,18 @@ html {
   font-size: 10px;
 
   body {
-    margin: 0px;
+    margin: 1rem;
     font-family: "Gill Sans";
     background-color: #777;
     font-size: 1.5rem;
   }
+}
+
+mat-dialog-container {
+  width: 30rem !important;
+  height: 10rem !important;
+  top: 1rem !important;
+  right: 1rem !important;
+  left: initial !important;
+  position: fixed !important;
 }

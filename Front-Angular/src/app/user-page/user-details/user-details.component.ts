@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserAdressResponse } from 'src/app/models/response_models';
+import { UserDataResponse } from 'src/app/models/intendant/user.models';
 import { AuthService } from 'src/app/services/auth.service';
-import { UsersDataService } from 'src/app/services/users-data.service';
+import { UserService } from 'src/app/services/intendants/user.service';
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
@@ -13,12 +13,7 @@ export class UserDetailsComponent implements OnInit {
   editingEmail: boolean = false;
   editingFirst: boolean = false;
   editingLast: boolean = false;
-  editingPhone: boolean = false;
-  editingPost: boolean = false;
-  editingStreetName: boolean = false;
-  editingStreetNumber: boolean = false;
-  editingFlat: boolean = false;
-  user: UserAdressResponse;
+  user: UserDataResponse;
 
   properties: any[];
 
@@ -29,16 +24,11 @@ export class UserDetailsComponent implements OnInit {
     ),
     first_name: new FormControl(null),
     last_name: new FormControl(null),
-    telephone: new FormControl(null),
-    post_code: new FormControl(null),
-    street_name: new FormControl(null),
-    street_number: new FormControl(null),
-    flat_number: new FormControl(null),
     hashed_password: new FormControl(null),
   });
 
   constructor(
-    private usersDataService: UsersDataService,
+    private usersDataService: UserService,
     private authService: AuthService,
     private router: Router
   ) {}
@@ -66,21 +56,6 @@ export class UserDetailsComponent implements OnInit {
       body['last_name'] = this.form.controls.last_name.value;
     }
     if (this.properties[3].isVisible) {
-      body['telephone'] = this.form.controls.telephone.value;
-    }
-    if (this.properties[4].isVisible) {
-      body['post_code'] = this.form.controls.post_code.value;
-    }
-    if (this.properties[5].isVisible) {
-      body['street_name'] = this.form.controls.street_name.value;
-    }
-    if (this.properties[6].isVisible) {
-      body['street_number'] = this.form.controls.street_number.value;
-    }
-    if (this.properties[7].isVisible) {
-      body['flat_number'] = this.form.controls.flat_number.value;
-    }
-    if (this.properties[8].isVisible) {
       body['hashed_password'] = this.form.controls.hashed_password.value;
     }
     this.authService.editUser(body);
@@ -101,28 +76,8 @@ export class UserDetailsComponent implements OnInit {
         this.properties[2].isVisible = !this.properties[2].isVisible;
         break;
       }
-      case 'editingPhone': {
-        this.properties[3].isVisible = !this.properties[3].isVisible;
-        break;
-      }
-      case 'editingPost': {
-        this.properties[4].isVisible = !this.properties[4].isVisible;
-        break;
-      }
-      case 'editingStreetName': {
-        this.properties[5].isVisible = !this.properties[5].isVisible;
-        break;
-      }
-      case 'editingStreetNumber': {
-        this.properties[6].isVisible = !this.properties[6].isVisible;
-        break;
-      }
-      case 'editingFlat': {
-        this.properties[7].isVisible = !this.properties[7].isVisible;
-        break;
-      }
       case 'hashed_password': {
-        this.properties[8].isVisible = !this.properties[8].isVisible;
+        this.properties[3].isVisible = !this.properties[3].isVisible;
         break;
       }
     }
@@ -155,46 +110,6 @@ export class UserDetailsComponent implements OnInit {
           type: 'text',
           placeholder: this.user.last_name,
           formControlName: 'last_name',
-        },
-        {
-          label: 'Telephone number',
-          editingName: 'editingPhone',
-          isVisible: false,
-          type: 'number',
-          placeholder: this.user.telephone,
-          formControlName: 'telephone',
-        },
-        {
-          label: 'Post code',
-          editingName: 'editingPost',
-          isVisible: false,
-          type: 'number',
-          placeholder: this.user.post_code,
-          formControlName: 'post_code',
-        },
-        {
-          label: 'Street name',
-          editingName: 'editingStreetName',
-          isVisible: false,
-          type: 'text',
-          placeholder: this.user.street_name,
-          formControlName: 'street_name',
-        },
-        {
-          label: 'Street number',
-          editingName: 'editingStreetNumber',
-          isVisible: false,
-          type: 'number',
-          placeholder: this.user.street_number,
-          formControlName: 'street_number',
-        },
-        {
-          label: 'Flat number',
-          editingName: 'editingFlat',
-          isVisible: false,
-          type: 'number',
-          placeholder: this.user.flat_number,
-          formControlName: 'flat_number',
         },
         {
           label: 'Password',

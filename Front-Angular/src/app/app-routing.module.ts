@@ -6,9 +6,8 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './loging/register/register.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { UserDetailsComponent } from './user-page/user-details/user-details.component';
-import { ProductsComponent } from './products/products.component';
-import { ProductComponent } from './products/product/product.component';
-import { OrdersComponent } from './orders/orders.component';
+import { IntendantsComponent } from './intendants/intendants.component';
+import { SchoolsComponent } from './schools/schools.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -26,16 +25,12 @@ const routes: Routes = [
     component: UserDetailsComponent,
   },
   {
-    path: 'products',
-    component: ProductsComponent,
+    path: 'intendants',
+    component: IntendantsComponent,
   },
   {
-    path: 'product',
-    component: ProductComponent,
-  },
-  {
-    path: 'orders',
-    component: OrdersComponent,
+    path: 'schools',
+    component: SchoolsComponent,
   },
 ];
 

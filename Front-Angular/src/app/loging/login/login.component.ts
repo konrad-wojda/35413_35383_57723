@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ErrorModalComponent } from 'src/app/modals/error-modal/error-modal.component';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +16,11 @@ export class LoginComponent {
     password: new FormControl(null, Validators.required),
   });
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private dialog: MatDialog
+  ) {}
 
   submitForm() {
     if (this.form.invalid) {
@@ -22,8 +28,19 @@ export class LoginComponent {
     }
     this.authService
       .login(this.form.get('email')?.value, this.form.get('password')?.value)
-      .subscribe((response) => {
-        this.router.navigate(['/']);
+      .subscribe({
+        next: (response) => {
+          this.router.navigate(['/']);
+        },
+        error: (error) => {
+          this.openErrorModal(error.error.detail);
+        },
       });
+  }
+
+  openErrorModal(errorMessage: string) {
+    this.dialog.open(ErrorModalComponent, {
+      data: { errorMessage },
+    });
   }
 }

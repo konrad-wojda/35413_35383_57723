@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,9 +12,10 @@ import { UserPageComponent } from './user-page/user-page.component';
 import { UserDetailsComponent } from './user-page/user-details/user-details.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProductsComponent } from './products/products.component';
-import { ProductComponent } from './products/product/product.component';
-import { OrdersComponent } from './orders/orders.component';
+import { SchoolsComponent } from './schools/schools.component';
+import { IntendantsComponent } from './intendants/intendants.component';
+import { IntendantComponent } from './intendants/intendants/intendant.component';
+import { ErrorModalComponent } from './modals/error-modal/error-modal.component';
 
 @NgModule({
   declarations: [
@@ -24,9 +26,10 @@ import { OrdersComponent } from './orders/orders.component';
     RegisterComponent,
     UserPageComponent,
     UserDetailsComponent,
-    ProductsComponent,
-    ProductComponent,
-    OrdersComponent,
+    IntendantsComponent,
+    IntendantComponent,
+    SchoolsComponent,
+    ErrorModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +37,7 @@ import { OrdersComponent } from './orders/orders.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

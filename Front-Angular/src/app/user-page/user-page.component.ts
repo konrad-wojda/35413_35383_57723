@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersDataService } from '../services/users-data.service';
-import { UserDataResponse } from '../models/response_models';
+import { UserService } from '../services/intendants/user.service';
+import { UserDataResponse } from '../models/intendant/user.models';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class UserPageComponent implements OnInit {
   user: UserDataResponse;
 
   constructor(
-    private usersDataService: UsersDataService,
+    private usersDataService: UserService,
     private authService: AuthService
   ) {}
 

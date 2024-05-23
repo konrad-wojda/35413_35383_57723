@@ -1,11 +1,20 @@
 from fastapi import FastAPI
-from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
+
 from routes import router as api_router
 import uvicorn
 
+
 app = FastAPI()
 
+
+@app.get("/")
+async def health_check():
+    """
+    Checks if server is working
+    :return: simple message that server is running
+    """
+    return "Server is running"
 
 origins = [
     "*",
@@ -21,7 +30,6 @@ app.add_middleware(
 
 app.include_router(api_router)
 
-templates = Jinja2Templates(directory="templates")
 
 if __name__ == '__main__':
     uvicorn.run(app, port=80, host='127.0.0.1')
