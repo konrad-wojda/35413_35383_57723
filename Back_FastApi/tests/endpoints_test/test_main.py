@@ -1,14 +1,9 @@
-import pytest
 from fastapi.testclient import TestClient
 from passlib import hash
 from main import app
-import os
 import jwt
-from core.db_src.database import get_db, override_get_db
+from core.db_src.database import get_db, override_get_db,create_database, clear_database
 from core.db_src.db_models import UserModel
-from sqlalchemy.orm import declarative_base
-
-Base = declarative_base()
 
 
 app.dependency_overrides[get_db] = override_get_db
@@ -18,17 +13,13 @@ email, password = 'string@com.pl', 'String123*'
 
 
 def clean_up(*args: str):
-    if 'end' in args:
-        if os.path.exists("test.db"):
-            os.remove("test.db")
-        return
-    if os.path.exists("test.db"):
-        os.remove("test.db")
+    clear_database()
+    create_database()
 
     if 'add_user' in args:
         passwrd = 'String123'
-        if 'String123!' in args:
-            passwrd = 'String123!'
+        if 'String123*' in args:
+            passwrd = 'String123*'
 
         db.add(UserModel(email=email, hashed_password=hash.bcrypt.hash(passwrd)))
         db.commit()
@@ -45,15 +36,14 @@ def test_health_check():
 
 # def test_login_good(_password: str = password):
 #     token = clean_up('add_user', _password)
-#     print(_password)
 #     response = client.post(
 #         "/api/user/login",
 #         json={"email": email, "hashed_password": _password},
 #     )
 #     assert response.status_code == 200
-#     assert response.json() == {'status_code': 200, "id_intendant": 1, "token": token, "token_type": "bearer"}
-#
-#     clean_up('end')
+#     assert response.json() == {'status_code': 200, "id_user": 1, "token": token, "token_type": "bearer"}
+# 
+#     
 
 
 # def test_login_bad():
@@ -64,32 +54,32 @@ def test_health_check():
 #     )
 #     assert response.status_code == 404
 #     assert response.json() == {"detail": "Invalid Credentials"}
-#
-#     clean_up('end')
-#
-#
+# 
+#     
+
+
 def test_register_good():
     clean_up()
     response = client.post(
         "/api/user/register",
         json={"email": email, "hashed_password": password, "repeat_password": password},
     )
-    # assert response.status_code == 200
+    assert response.status_code == 200
     assert response.json() == {'status_code': 200, "email": email}
 
-    clean_up('end')
-#
-#
+    
+
+
 # def test_register_repeat():
 #     clean_up("add_user")
 #     response = client.post(
 #         "/api/user/register",
 #         json={"email": email, "hashed_password": password, "repeat_password": password},
 #     )
-#     assert response.status_code == 404
+#     assert response.status_code == 400
 #     assert response.json() == {'detail': 'Email already in use'}
-#
-#     clean_up('end')
+# 
+#     
 #
 #
 # def test_register_bad_passwords():
@@ -110,7 +100,7 @@ def test_register_good():
 #     assert response.json() == {'detail': 'Passwords not match, or at least one is shorter than 8 characters, password '
 #                                          'should have small and capital letter with number and special character.'}
 #
-#     clean_up('end')
+#     
 #
 #
 # def test_register_bad_email():
@@ -122,7 +112,7 @@ def test_register_good():
 #     assert response.status_code == 404
 #     assert response.json() == {'detail': 'E-mail is not valid'}
 #
-#     clean_up('end')
+#     
 #
 #
 # def test_user_exists():
@@ -135,7 +125,7 @@ def test_register_good():
 #                                'is_admin': False, 'is_employee': False, 'last_name': '', 'post_code': 0,
 #                                'street_name': '', 'street_number': 0, 'telephone': 0, 'id_intendant': 1}
 #
-#     clean_up('end')
+#     
 #
 #
 # def test_user_not_exists():
@@ -146,7 +136,7 @@ def test_register_good():
 #     assert response.status_code == 404
 #     assert response.json() == {'detail': 'Token not exists'}
 #
-#     clean_up('end')
+#     
 #
 #
 # def test_user_edit():
@@ -158,7 +148,7 @@ def test_register_good():
 #     assert response.status_code == 200
 #     assert response.json() == {"detail": "User edited"}
 #     test_login_good('String123!')
-#     clean_up('end')
+#     
 #
 #
 # def test_user_edit_bad():
@@ -169,7 +159,7 @@ def test_register_good():
 #     )
 #     assert response.status_code == 404
 #     assert response.json() == {'detail': 'Token not exists'}
-#     clean_up('end')
+#     
 #
 #
 # def test_delete_good():
@@ -181,7 +171,7 @@ def test_register_good():
 #     assert response.status_code == 200
 #     assert response.json() == {'status_code': 200, 'text': 'Account got deleted'}
 #
-#     clean_up('end')
+#     
 #
 #
 # def test_delete_bad():
@@ -193,4 +183,4 @@ def test_register_good():
 #     assert response.status_code == 404
 #     assert response.json() == {'detail': 'Invalid Credentials'}
 #
-#     clean_up('end')
+#     

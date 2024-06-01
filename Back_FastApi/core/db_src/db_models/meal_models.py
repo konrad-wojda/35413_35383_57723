@@ -1,4 +1,4 @@
-from sqlalchemy import ForeignKey,  UniqueConstraint, PrimaryKeyConstraint
+from sqlalchemy import ForeignKey,  UniqueConstraint
 from sqlalchemy.orm import relationship, mapped_column, Mapped
 
 from core.db_src.db_models.base_models import Base
