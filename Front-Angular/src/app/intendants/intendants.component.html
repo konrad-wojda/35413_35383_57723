@@ -1,0 +1,10 @@
+<form
+  (ngSubmit)="submitSearch()"
+  [formGroup]="searchForm"
+  autocomplete="off"
+  class="container"
+>
+  <input type="email" formControlName="email" />
+  <button type="submit" class="submit">Search for intendant</button>
+</form>
+<app-intendant [intendant]="this.intendant$ | async" />

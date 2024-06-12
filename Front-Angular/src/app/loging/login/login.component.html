@@ -1,0 +1,13 @@
+<form (ngSubmit)="submitForm()" [formGroup]="form" autocomplete="off">
+  <label>E-mail</label>
+  <input type="text" placeholder="Your email" formControlName="email" />
+  <br />
+  <label>Password</label>
+  <input
+    type="password"
+    placeholder="Your password"
+    formControlName="password"
+  />
+  <br />
+  <button type="submit">Login</button>
+</form>
