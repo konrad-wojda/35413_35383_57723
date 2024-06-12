@@ -1,0 +1,21 @@
+<div>
+  <ng-template [ngIf]="user?.is_admin" [ngIfElse]="notAdmin">
+    <div>Welcome home Administrator.</div>
+  </ng-template>
+
+  <ng-template #notAdmin>
+    <div>Good to see You Intendant!</div>
+  </ng-template>
+
+  <br />
+  <br />
+  Your email is: {{ user?.email }}<br />
+  Your first name is: {{ user?.first_name }}<br />
+  Your last name is: {{ user?.last_name }}<br />
+  <br />
+
+  <br />
+  <a href="/user/edit">Edit account data</a> <br />
+  <button (click)="delete(user?.email)">Delete account</button>
+</div>
+<router-outlet></router-outlet>

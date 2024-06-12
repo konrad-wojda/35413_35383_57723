@@ -1,0 +1,23 @@
+<form (ngSubmit)="submitForm()" [formGroup]="form" autocomplete="off">
+  <label>E-mail</label>
+  <input type="email" formControlName="email" placeholder="Your email" />
+  <br />
+
+  <label>Password</label>
+  <input type="password" formControlName="password" placeholder="Password" />
+  <br />
+
+  <label>Repeat password</label>
+  <input
+    type="password"
+    formControlName="repeat_password"
+    placeholder="Password"
+  />
+  <br />
+  <button type="submit">Register</button>
+</form>
+<ng-container *ngIf="res.status_code > 200">
+  <div style="height: 20px; background-color: coral">
+    {{ res.detail }}
+  </div>
+</ng-container>

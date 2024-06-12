@@ -1,0 +1,17 @@
+<ng-template [ngIf]="authService.isLoggedIn$ | async" [ngIfElse]="notLogged">
+  <div class="navbar">
+    <a href="/">Home</a>
+    <a href="/intendants">Intendants</a>
+    <a href="/schools">Schools</a>
+    <a href="/user">User</a>
+    <a href="/" (click)="authService.logout()">Logout</a>
+  </div>
+</ng-template>
+<ng-template #notLogged>
+  <div class="navbar">
+    <a href="/">Home</a>
+    <a href="/intendants">Products</a>
+    <a href="/login">Login</a>
+    <a href="/register">Register</a>
+  </div>
+</ng-template>
