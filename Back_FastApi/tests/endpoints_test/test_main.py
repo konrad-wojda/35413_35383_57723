@@ -63,21 +63,17 @@ def test_register_good():
     assert response.status_code == 200
     assert response.json() == {'status_code': 200, "email": email}
 
-    
+
+def test_register_repeat_bad():
+    clean_up("add_user")
+    response = client.post(
+        "/api/user/register",
+        json={"email": email, "hashed_password": password, "repeat_password": password},
+    )
+    assert response.status_code == 400
+    assert response.json() == {'detail': 'Email already in use'}
 
 
-# def test_register_repeat():
-#     clean_up("add_user")
-#     response = client.post(
-#         "/api/user/register",
-#         json={"email": email, "hashed_password": password, "repeat_password": password},
-#     )
-#     assert response.status_code == 400
-#     assert response.json() == {'detail': 'Email already in use'}
-# 
-#     
-#
-#
 # def test_register_bad_passwords():
 #     clean_up("add_user")
 #     response = client.post(
