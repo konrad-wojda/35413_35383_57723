@@ -107,21 +107,17 @@ def test_register_bad_email():
     assert response.status_code == 400
     assert response.json() == {'detail': "E-mail is not valid or too long; max "
                                          f"{getenv_int('MAX_EMAIL_LEN')} characters."}
-#
-#     
-#
-#
-# def test_user_exists():
-#     token = clean_up('add_user')
-#     response = client.get(
-#         f"/api/user/get?token={token}",
-#     )
-#     assert response.status_code == 200
-#     assert response.json() == {'email': 'string@com.pl', 'first_name': '', 'flat_number': 0, 'is_active': True,
-#                                'is_admin': False, 'is_employee': False, 'last_name': '', 'post_code': 0,
-#                                'street_name': '', 'street_number': 0, 'telephone': 0, 'id_intendant': 1}
-#
-#     
+
+
+def test_user_exists():
+    token = clean_up('add_user')
+    response = client.get(
+        f"/api/user/get?token={token}",
+    )
+    assert response.status_code == 200
+    assert response.json() == {'email': 'string@com.pl', 'first_name': '', 'last_name': '',
+                               'is_admin': False, 'id_user': 1}
+
 #
 #
 # def test_user_not_exists():
