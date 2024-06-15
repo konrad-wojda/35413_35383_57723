@@ -23,7 +23,7 @@ def clean_up(*args: str):
 
         db.add(UserModel(email=email, hashed_password=hash.bcrypt.hash(passwrd)))
         db.commit()
-    jwt_secret = 'nothingspecialtogetitright'
+    jwt_secret = 'nothingspecialtogetitrightlite'
     token = jwt.encode({'id_user': 1, "email": email}, jwt_secret)
     return token
 
@@ -34,16 +34,14 @@ def test_health_check():
     assert response.json() == "Server is running"
 
 
-# def test_login_good(_password: str = password):
-#     token = clean_up('add_user', _password)
-#     response = client.post(
-#         "/api/user/login",
-#         json={"email": email, "hashed_password": _password},
-#     )
-#     assert response.status_code == 200
-#     assert response.json() == {'status_code': 200, "id_user": 1, "token": token, "token_type": "bearer"}
-# 
-#     
+def test_login_good(_password: str = password):
+    token = clean_up('add_user', _password)
+    response = client.post(
+        "/api/user/login",
+        json={"email": email, "hashed_password": _password},
+    )
+    assert response.status_code == 200
+    assert response.json() == {'status_code': 200, "id_user": 1, "token": token, "token_type": "bearer"}
 
 
 # def test_login_bad():
@@ -54,8 +52,8 @@ def test_health_check():
 #     )
 #     assert response.status_code == 404
 #     assert response.json() == {"detail": "Invalid Credentials"}
-# 
-#     
+#
+#
 
 
 def test_register_good():
