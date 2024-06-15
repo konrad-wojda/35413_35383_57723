@@ -96,16 +96,17 @@ def test_register_bad_passwords():
                                          f" {getenv_int('MIN_PASSWORD_LEN')} characters, "
                                          f"password should have small and capital letter with number"
                                          f" and special character."}
-#
-#
-# def test_register_bad_email():
-#     clean_up("add_user")
-#     response = client.post(
-#         "/api/user/register",
-#         json={"email": email[0:-1], "hashed_password": password, "repeat_password": password},
-#     )
-#     assert response.status_code == 404
-#     assert response.json() == {'detail': 'E-mail is not valid'}
+
+
+def test_register_bad_email():
+    clean_up("add_user")
+    response = client.post(
+        "/api/user/register",
+        json={"email": email[0:-1], "hashed_password": password, "repeat_password": password},
+    )
+    assert response.status_code == 400
+    assert response.json() == {'detail': "E-mail is not valid or too long; max "
+                                         f"{getenv_int('MAX_EMAIL_LEN')} characters."}
 #
 #     
 #
