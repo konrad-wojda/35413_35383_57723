@@ -40,7 +40,7 @@ def get_db():
         print("PostgresSQL here")
         engine = create_engine(Settings().db_uri())
 
-    # create_database(engine)
+    create_database(engine)
     session = sessionmaker(autocommit=False, autoflush=False, bind=engine)()
     try:
         yield session
