@@ -44,16 +44,14 @@ def test_login_good(_password: str = password):
     assert response.json() == {'status_code': 200, "id_user": 1, "token": token, "token_type": "bearer"}
 
 
-# def test_login_bad():
-#     clean_up()
-#     response = client.post(
-#         "/api/user/login",
-#         json={"email": email, "hashed_password": password+'1'},
-#     )
-#     assert response.status_code == 404
-#     assert response.json() == {"detail": "Invalid Credentials"}
-#
-#
+def test_login_bad():
+    clean_up()
+    response = client.post(
+        "/api/user/login",
+        json={"email": email, "hashed_password": password+'1'},
+    )
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Invalid Credentials"}
 
 
 def test_register_good():
