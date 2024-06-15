@@ -4,6 +4,7 @@ from main import app
 import jwt
 from core.db_src.database import get_db, override_get_db,create_database, clear_database
 from core.db_src.db_models import UserModel
+from core.db_src.getenv_helper import getenv_int
 
 
 app.dependency_overrides[get_db] = override_get_db
@@ -63,40 +64,38 @@ def test_register_good():
     assert response.status_code == 200
     assert response.json() == {'status_code': 200, "email": email}
 
-    
+
+def test_register_repeat_bad():
+    clean_up("add_user")
+    response = client.post(
+        "/api/user/register",
+        json={"email": email, "hashed_password": password, "repeat_password": password},
+    )
+    assert response.status_code == 400
+    assert response.json() == {'detail': 'Email already in use'}
 
 
-# def test_register_repeat():
-#     clean_up("add_user")
-#     response = client.post(
-#         "/api/user/register",
-#         json={"email": email, "hashed_password": password, "repeat_password": password},
-#     )
-#     assert response.status_code == 400
-#     assert response.json() == {'detail': 'Email already in use'}
-# 
-#     
-#
-#
-# def test_register_bad_passwords():
-#     clean_up("add_user")
-#     response = client.post(
-#         "/api/user/register",
-#         json={"email": email, "hashed_password": password, "repeat_password": password[0:-1]},
-#     )
-#     assert response.status_code == 404
-#     assert response.json() == {'detail': 'Passwords not match, or at least one is shorter than 8 characters, password '
-#                                          'should have small and capital letter with number and special character.'}
-#
-#     response = client.post(
-#         "/api/register",
-#         json={"email": email, "hashed_password": password, "repeat_password": ''},
-#     )
-#     assert response.status_code == 400
-#     assert response.json() == {'detail': 'Passwords not match, or at least one is shorter than 8 characters, password '
-#                                          'should have small and capital letter with number and special character.'}
-#
-#     
+def test_register_bad_passwords():
+    clean_up("add_user")
+    response = client.post(
+        "/api/user/register",
+        json={"email": email, "hashed_password": password, "repeat_password": password[0:-1]},
+    )
+    assert response.status_code == 400
+    assert response.json() == {'detail': f"Passwords not match, or at least one is shorter than"
+                                         f" {getenv_int('MIN_PASSWORD_LEN')} characters, "
+                                         f"password should have small and capital letter with number"
+                                         f" and special character."}
+
+    response = client.post(
+        "/api/user/register",
+        json={"email": email, "hashed_password": password, "repeat_password": ''},
+    )
+    assert response.status_code == 400
+    assert response.json() == {'detail': f"Passwords not match, or at least one is shorter than"
+                                         f" {getenv_int('MIN_PASSWORD_LEN')} characters, "
+                                         f"password should have small and capital letter with number"
+                                         f" and special character."}
 #
 #
 # def test_register_bad_email():
