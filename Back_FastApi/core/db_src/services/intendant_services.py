@@ -115,15 +115,14 @@ async def update_user(form_data: schemas.UserRest, db: _Session) -> dict:
     user = await get_current_user(form_data.token, db)
     form_data.hashed_password = hash.bcrypt.hash(form_data.hashed_password)
     del form_data.token
-    if user['id_user'] == form_data.id_user:
-        db.execute(
-            update(UserModel).
-            where(UserModel.id_user == user['id_user']).
-            values(
-                form_data.dict(exclude_none=True)
-            )
+    db.execute(
+        update(UserModel).
+        where(UserModel.id_user == user['id_user']).
+        values(
+            form_data.dict(exclude_none=True)
         )
-        db.commit()
+    )
+    db.commit()
     return dict(detail="User edited")
 
 

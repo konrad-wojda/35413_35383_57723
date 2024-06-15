@@ -84,7 +84,7 @@ async def edit_user(form_data: schemas.UserRest, db: _Session = Depends(get_db))
     if not await functions.is_valid_email(form_data.email) and form_data.email:
         raise HTTPException(status_code=400, detail="E-mail is not valid or too long; max "
                                                     f"{getenv_int('MAX_EMAIL_LEN')} characters")
-    if not await functions.is_valid_email(form_data.hashed_password):
+    if not functions.is_valid_password(form_data.hashed_password):
         raise HTTPException(status_code=400, detail="Password is too weak")
 
     return await services.update_user(form_data, db)
@@ -100,6 +100,9 @@ async def delete_user(form_data: schemas.UserPasswords, db: _Session = Depends(g
     """
     if not functions.are_passwords_matched(form_data.hashed_password, form_data.repeat_password):
         raise HTTPException(status_code=404, detail="Passwords not match")
+
+    if not await services.authenticate_user(form_data.email, form_data.hashed_password, db):
+        raise HTTPException(status_code=404, detail="User cannot be deleted with this data")
 
     await services.delete_user(form_data, db)
     return {'status_code': 200, 'text': 'Account got deleted'}

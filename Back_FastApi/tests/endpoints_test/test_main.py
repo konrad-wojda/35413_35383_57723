@@ -128,18 +128,16 @@ def test_user_not_exists():
     assert response.json() == {'detail': 'Token not exists'}
 
 
-#
-#
 # def test_user_edit():
+#     _password = password[0:-1]+"!"
 #     token = clean_up('add_user')
 #     response = client.patch(
 #         "/api/user/edit",
-#         json={"token": token, "hashed_password": "String123!"},
+#         json={"token": token, "hashed_password": _password},
 #     )
 #     assert response.status_code == 200
 #     assert response.json() == {"detail": "User edited"}
-#     test_login_good('String123!')
-#     
+#     test_login_good(_password)
 #
 #
 # def test_user_edit_bad():
@@ -152,7 +150,6 @@ def test_user_not_exists():
 #     assert response.json() == {'detail': 'Token not exists'}
 #     
 #
-#
 # def test_delete_good():
 #     clean_up('add_user')
 #     response = client.delete(
@@ -161,17 +158,20 @@ def test_user_not_exists():
 #     )
 #     assert response.status_code == 200
 #     assert response.json() == {'status_code': 200, 'text': 'Account got deleted'}
-#
-#     
-#
-#
-# def test_delete_bad():
-#     clean_up()
-#     response = client.delete(
-#         "/api/user/delete",
-#         json={"email": email, "hashed_password": password, "repeat_password": password, "id_user": 2},
-#     )
-#     assert response.status_code == 404
-#     assert response.json() == {'detail': 'Invalid Credentials'}
-#
-#     
+
+
+def test_delete_bad():
+    clean_up('add_user')
+    response = client.delete(
+        "/api/user/delete",
+        json={"email": email, "hashed_password": password, "repeat_password": password[0:-1], "id_user": 1},
+    )
+    assert response.status_code == 404
+    assert response.json() == {'detail': 'Passwords not match'}
+    #
+    response = client.delete(
+        "/api/user/delete",
+        json={"email": email, "hashed_password": password[0:-2], "repeat_password": password[0:-2], "id_user": 1},
+    )
+    assert response.status_code == 404
+    assert response.json() == {'detail': 'User cannot be deleted with this data'}
