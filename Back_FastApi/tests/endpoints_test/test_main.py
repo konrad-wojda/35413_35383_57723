@@ -96,42 +96,38 @@ def test_register_bad_passwords():
                                          f" {getenv_int('MIN_PASSWORD_LEN')} characters, "
                                          f"password should have small and capital letter with number"
                                          f" and special character."}
-#
-#
-# def test_register_bad_email():
-#     clean_up("add_user")
-#     response = client.post(
-#         "/api/user/register",
-#         json={"email": email[0:-1], "hashed_password": password, "repeat_password": password},
-#     )
-#     assert response.status_code == 404
-#     assert response.json() == {'detail': 'E-mail is not valid'}
-#
-#     
-#
-#
-# def test_user_exists():
-#     token = clean_up('add_user')
-#     response = client.get(
-#         f"/api/user/get?token={token}",
-#     )
-#     assert response.status_code == 200
-#     assert response.json() == {'email': 'string@com.pl', 'first_name': '', 'flat_number': 0, 'is_active': True,
-#                                'is_admin': False, 'is_employee': False, 'last_name': '', 'post_code': 0,
-#                                'street_name': '', 'street_number': 0, 'telephone': 0, 'id_intendant': 1}
-#
-#     
-#
-#
-# def test_user_not_exists():
-#     clean_up()
-#     response = client.get(
-#         f"/api/user/get?token=bad.token",
-#     )
-#     assert response.status_code == 404
-#     assert response.json() == {'detail': 'Token not exists'}
-#
-#     
+
+
+def test_register_bad_email():
+    clean_up("add_user")
+    response = client.post(
+        "/api/user/register",
+        json={"email": email[0:-1], "hashed_password": password, "repeat_password": password},
+    )
+    assert response.status_code == 400
+    assert response.json() == {'detail': "E-mail is not valid or too long; max "
+                                         f"{getenv_int('MAX_EMAIL_LEN')} characters."}
+
+
+def test_user_exists():
+    token = clean_up('add_user')
+    response = client.get(
+        f"/api/user/get?token={token}",
+    )
+    assert response.status_code == 200
+    assert response.json() == {'email': 'string@com.pl', 'first_name': '', 'last_name': '',
+                               'is_admin': False, 'id_user': 1}
+
+
+def test_user_not_exists():
+    clean_up()
+    response = client.get(
+        f"/api/user/get?token=bad.token",
+    )
+    assert response.status_code == 404
+    assert response.json() == {'detail': 'Token not exists'}
+
+
 #
 #
 # def test_user_edit():
