@@ -118,17 +118,16 @@ def test_user_exists():
     assert response.json() == {'email': 'string@com.pl', 'first_name': '', 'last_name': '',
                                'is_admin': False, 'id_user': 1}
 
-#
-#
-# def test_user_not_exists():
-#     clean_up()
-#     response = client.get(
-#         f"/api/user/get?token=bad.token",
-#     )
-#     assert response.status_code == 404
-#     assert response.json() == {'detail': 'Token not exists'}
-#
-#     
+
+def test_user_not_exists():
+    clean_up()
+    response = client.get(
+        f"/api/user/get?token=bad.token",
+    )
+    assert response.status_code == 404
+    assert response.json() == {'detail': 'Token not exists'}
+
+
 #
 #
 # def test_user_edit():
