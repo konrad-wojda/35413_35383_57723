@@ -21,9 +21,3 @@ export interface UserDataResponse {
 export interface UserEditResponse {
   detail: string;
 }
-
-export interface IntendantDataResponse extends UserDataResponse {
-  is_main_admin: boolean;
-  id_intendant: number;
-  id_school: number;
-}

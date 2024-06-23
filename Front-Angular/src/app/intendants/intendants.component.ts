@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { IntendantService } from '../services/intendants/intendant.service';
-import { IntendantDataResponse } from '../models/intendant/user.models';
 import { Observable } from 'rxjs';
+import { IntendantDataResponse } from 'src/shared/models/intendant/intendant.models';
+import { IntendantService } from 'src/shared/services/intendants/intendant.service';
 
 @Component({
   selector: 'app-intendants',

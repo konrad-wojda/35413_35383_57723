@@ -32,7 +32,7 @@ def upgrade() -> None:
     sa.Column('id_attendance_list', sa.Integer(), nullable=False),
     sa.Column('id_student', sa.Integer(), nullable=False),
     sa.Column('id_meal_type', sa.Integer(), nullable=False),
-    sa.Column('date', sa.DateTime(timezone=True), nullable=False),
+    sa.Column('date', sa.String(), nullable=False),
     sa.ForeignKeyConstraint(['id_meal_type'], ['units.id_unit'], ),
     sa.ForeignKeyConstraint(['id_student'], ['units.id_unit'], ),
     sa.PrimaryKeyConstraint('id_attendance_list')

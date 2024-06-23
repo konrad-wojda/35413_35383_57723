@@ -5,7 +5,7 @@ import {
   SchoolCreateData,
   SchoolCreateResponse,
   SchoolData,
-} from 'src/app/models/intendant/school.models';
+} from 'src/shared/models/intendant/school.models';
 
 @Injectable({
   providedIn: 'root',

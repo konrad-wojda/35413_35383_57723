@@ -22,7 +22,7 @@ class _UserBase(BaseModel):
 
 
 class UserPasswords(_UserBase):
-    hashed_password: str = Field(None)
+    hashed_password: str
     repeat_password: Optional[str] = Field(None)
 
     class Config:

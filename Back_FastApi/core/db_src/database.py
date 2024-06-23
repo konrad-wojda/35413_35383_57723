@@ -35,7 +35,9 @@ def get_db():
     """
     if getenv('DB_TYPE') == "lite":
         print("SQLite here")
-        engine = create_engine(Settings().db_uri(), connect_args={"check_same_thread": False})  # args only if LiteDB
+        engine = create_engine(
+            Settings().db_uri(), connect_args={"check_same_thread": False}, poolclass=StaticPool
+        )  # args only if LiteDB
     else:
         print("PostgresSQL here")
         engine = create_engine(Settings().db_uri())

@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { IntendantDataResponse } from 'src/app/models/intendant/user.models';
+import { IntendantDataResponse } from 'src/shared/models/intendant/intendant.models';
 
 @Component({
   selector: 'app-intendant',

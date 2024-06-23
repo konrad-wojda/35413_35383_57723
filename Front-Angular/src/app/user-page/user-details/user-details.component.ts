@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserDataResponse } from 'src/app/models/intendant/user.models';
-import { AuthService } from 'src/app/services/auth.service';
-import { UserService } from 'src/app/services/intendants/user.service';
+import { UserDataResponse } from 'src/shared/models/intendant/user.models';
+import { AuthService } from 'src/shared/services/auth.service';
+import { UserService } from 'src/shared/services/intendants/user.service';
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',

@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 
 from routes import router as api_router
 import uvicorn
@@ -8,7 +9,7 @@ import uvicorn
 app = FastAPI()
 
 
-@app.get("/")
+@app.get("/health_check")
 async def health_check():
     """
     Checks if server is working
@@ -16,8 +17,19 @@ async def health_check():
     """
     return "Server is running"
 
+
+@app.get("/", include_in_schema=False)
+async def health_check():
+    """
+    Checks if server is working
+    :return: simple message that server is running
+    """
+    return RedirectResponse(url='/docs')
+
 origins = [
-    "*",
+    # "http://localhost",
+    # "http://localhost:4200"
+    "*"
 ]
 
 app.add_middleware(

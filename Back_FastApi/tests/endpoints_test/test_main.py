@@ -1,5 +1,7 @@
 from fastapi.testclient import TestClient
 from passlib import hash
+
+from core.db_src.db_settings import Settings
 from main import app
 import jwt
 from core.db_src.database import get_db, override_get_db,create_database, clear_database
@@ -24,13 +26,13 @@ def clean_up(*args: str):
 
         db.add(UserModel(email=email, hashed_password=hash.bcrypt.hash(passwrd)))
         db.commit()
-    jwt_secret = 'nothingspecialtogetitrightlite'
+    jwt_secret = Settings().db_token()
     token = jwt.encode({'id_user': 1, "email": email}, jwt_secret)
     return token
 
 
 def test_health_check():
-    response = client.get('/')
+    response = client.get('/health_check')
     assert response.status_code == 200
     assert response.json() == "Server is running"
 
@@ -138,18 +140,18 @@ def test_user_not_exists():
 #     assert response.status_code == 200
 #     assert response.json() == {"detail": "User edited"}
 #     test_login_good(_password)
-#
-#
-# def test_user_edit_bad():
-#     clean_up('add_user')
-#     response = client.patch(
-#         "/api/user/edit",
-#         json={"token": "bad.token", "hashed_password": "String123!"},
-#     )
-#     assert response.status_code == 404
-#     assert response.json() == {'detail': 'Token not exists'}
-#     
-#
+
+
+def test_user_edit_bad():
+    clean_up('add_user')
+    response = client.patch(
+        "/api/user/edit",
+        json={"token": "bad.token", "hashed_password": "String123!"},
+    )
+    assert response.status_code == 404
+    assert response.json() == {'detail': 'Token not exists'}
+    
+
 # def test_delete_good():
 #     clean_up('add_user')
 #     response = client.delete(
@@ -166,12 +168,12 @@ def test_delete_bad():
         "/api/user/delete",
         json={"email": email, "hashed_password": password, "repeat_password": password[0:-1], "id_user": 1},
     )
-    assert response.status_code == 404
+    assert response.status_code == 400
     assert response.json() == {'detail': 'Passwords not match'}
     #
     response = client.delete(
         "/api/user/delete",
         json={"email": email, "hashed_password": password[0:-2], "repeat_password": password[0:-2], "id_user": 1},
     )
-    assert response.status_code == 404
+    assert response.status_code == 400
     assert response.json() == {'detail': 'User cannot be deleted with this data'}

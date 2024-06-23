@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
-import { RegisterResponse } from 'src/app/models/intendant/user.models';
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService } from 'src/shared/services/api.service';
 
 @Component({
   selector: 'app-register',

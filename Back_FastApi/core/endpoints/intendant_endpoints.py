@@ -1,13 +1,14 @@
 from typing import Annotated, Type
 
-from fastapi import HTTPException,APIRouter, Depends
+from fastapi import HTTPException, APIRouter, Depends
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session as _Session
 
 import core.db_src.schemas.intendant_schemas as schemas
+from core.db_src.schemas.base_schemas import BaseLogged
 from core.db_src.services import intendant_services as services
 from core.db_src.functions import intendant_functions as functions
-from core.db_src.db_models.intendant_models import UserModel, SchoolModel, IntendantModel
+from core.db_src.db_models.intendant_models import UserModel, IntendantModel
 from core.db_src.database import get_db
 from ..db_src.getenv_helper import getenv_int
 
@@ -99,7 +100,9 @@ async def delete_user(form_data: schemas.UserPasswords, db: _Session = Depends(g
     :return: text if correct, raise 404 if error
     """
     if not functions.are_passwords_matched(form_data.hashed_password, form_data.repeat_password):
-        raise HTTPException(status_code=404, detail="Passwords not match")
+        raise HTTPException(status_code=400, detail="Passwords not match")
+    if not await services.authenticate_user(form_data.email, form_data.hashed_password, db):
+        raise HTTPException(status_code=400, detail="User cannot be deleted with this data")
 
     if not await services.authenticate_user(form_data.email, form_data.hashed_password, db):
         raise HTTPException(status_code=404, detail="User cannot be deleted with this data")
@@ -136,18 +139,18 @@ router_intendant = APIRouter(
 
 
 @router_intendant.get("/get")
-async def get_intendant(token: str, db: _Session = Depends(get_db)) -> IntendantModel:
+async def get_intendant(token: BaseLogged = Depends(), db: _Session = Depends(get_db)) -> IntendantModel:
     """
     Gets data about intendant from DB
     :param token: user JWT token
     :param db: Session of DB
     :return: data about intendant from DB
     """
-    intendant = await services.get_current_intendant(token, db)
+    intendant = await services.get_current_intendant(token.token, db)
     return intendant
 
 
-@router_intendant.get("/find_by_email")
+@router_intendant.get("/find-by-email")
 async def find_intendant(email: str, db: _Session = Depends(get_db)) -> dict:
     """
     Looks from intendant by his email
@@ -159,7 +162,7 @@ async def find_intendant(email: str, db: _Session = Depends(get_db)) -> dict:
     return intendant
 
 
-@router_intendant.post("/register_admin")
+@router_intendant.post("/register-admin")
 async def create_school_admin(form_data: schemas.Intendant, db: _Session = Depends(get_db)):
     """
     Registers intendant as school admin
