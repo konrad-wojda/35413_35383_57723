@@ -8,12 +8,12 @@
    git clone https://github.com/konrad-wojda/aplikacje-bazodanowe.git
 
 2. Navigate to the project directory: </br>
-   cd aplikacje-bazodanowe/docker
+   cd 35413_35383_57723/docker
 
 3. Start the Docker containers: </br>
-   docker compose up
+   docker-compose up
 
-4. .env file content</br>
+4. Back_FastApi/.env file content</br>
 
 DB_TYPE=postgres </br>
 </br>
@@ -30,3 +30,4 @@ DB_LITE_URI=sqlite:///./database.db </br>
 ################### </br>
 MIN_PASSWORD_LEN = 8 </br>
 MAX_EMAIL_LEN = 60 </br>
+git clone https://github.com/konrad-wojda/35413_35383_57723.git

@@ -104,6 +104,9 @@ async def delete_user(form_data: schemas.UserPasswords, db: _Session = Depends(g
     if not await services.authenticate_user(form_data.email, form_data.hashed_password, db):
         raise HTTPException(status_code=400, detail="User cannot be deleted with this data")
 
+    if not await services.authenticate_user(form_data.email, form_data.hashed_password, db):
+        raise HTTPException(status_code=404, detail="User cannot be deleted with this data")
+
     await services.delete_user(form_data, db)
     return {'status_code': 200, 'text': 'Account got deleted'}
 
