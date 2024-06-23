@@ -1,14 +1,27 @@
-import datetime
+from pydantic import Field, BaseModel
 
-from pydantic import BaseModel, Field
-from typing import Optional, Literal
-
-
-class _TransactionBase(BaseModel):
-    id_transaction: Optional[int] = Field(None)
+from . import BaseLogged
 
 
-class IntendantLogged(_TransactionBase):
+class StudentSchema(BaseLogged):
+    id_school: int = Field(None)
+    student_first_name: str = Field(None)
+    student_last_name: str = Field(None)
+    student_class: str = Field(None)
+
+    class Config:
+        orm_mode = True
+
+
+class GetAttendanceListSchema(BaseLogged):
+    date: str
+    id_school: int
+
+
+class StudentAttendanceSchema(BaseModel):
     id_student: int = Field(None)
-    id_meal_type: int = Field(None)
-    date: datetime.datetime = Field(None)
+    id_meal_type: list[int] = Field(None)
+
+
+class AddAttendanceListSchema(GetAttendanceListSchema):
+    attendance_list: list[StudentAttendanceSchema] = Field(None)

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../services/intendants/user.service';
-import { UserDataResponse } from '../models/intendant/user.models';
-import { AuthService } from '../services/auth.service';
+import { UserDataResponse } from 'src/shared/models/intendant/user.models';
+import { AuthService } from 'src/shared/services/auth.service';
+import { UserService } from 'src/shared/services/intendants/user.service';
 
 @Component({
   selector: 'app-user-page',

@@ -1,4 +1,5 @@
 from .getenv_helper import getenv
+db_type = getenv('DB_TYPE')
 
 
 class Settings:

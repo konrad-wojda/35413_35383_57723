@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorModalComponent } from 'src/app/modals/error-modal/error-modal.component';
+import { AuthService } from 'src/shared/services/auth.service';
+import { ErrorModalComponent } from 'src/shared/modals/error-modal/error-modal.component';
 
 @Component({
   selector: 'app-login',

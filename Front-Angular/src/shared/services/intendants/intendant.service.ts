@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
-import { IntendantDataResponse } from '../../models/intendant/user.models';
+import { IntendantDataResponse } from 'src/shared/models/intendant/intendant.models';
 
 @Injectable({
   providedIn: 'root',

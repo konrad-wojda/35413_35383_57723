@@ -29,7 +29,7 @@ def clean_up(*args: str):
 
 
 def test_health_check():
-    response = client.get('/')
+    response = client.get('/health_check')
     assert response.status_code == 200
     assert response.json() == "Server is running"
 
@@ -162,25 +162,28 @@ def test_register_good():
 #     
 #
 #
-# def test_delete_good():
+def test_delete_good():
+    clean_up('add_user')
+    response = client.delete(
+        "/api/user/delete",
+        json={"email": email, "hashed_password": password, "repeat_password": password, "id_user": 1},
+    )
+    assert response.status_code == 200
+    assert response.json() == {'status_code': 200, 'text': 'Account got deleted'}
+
+
+# def test_delete_bad():
 #     clean_up('add_user')
 #     response = client.delete(
 #         "/api/user/delete",
-#         json={"email": email, "hashed_password": password, "repeat_password": password, "id_user": 1},
-#     )
-#     assert response.status_code == 200
-#     assert response.json() == {'status_code': 200, 'text': 'Account got deleted'}
-#
-#     
-#
-#
-# def test_delete_bad():
-#     clean_up()
-#     response = client.delete(
-#         "/api/user/delete",
-#         json={"email": email, "hashed_password": password, "repeat_password": password, "id_user": 2},
+#         json={"email": email, "hashed_password": password, "repeat_password": password[0:-1], "id_user": 1},
 #     )
 #     assert response.status_code == 404
-#     assert response.json() == {'detail': 'Invalid Credentials'}
-#
-#     
+#     assert response.json() == {'detail': 'Passwords not match'}
+#     #
+#     response = client.delete(
+#         "/api/user/delete",
+#         json={"email": email, "hashed_password": password[0:-2], "repeat_password": password[0:-2], "id_user": 1},
+#     )
+#     assert response.status_code == 404
+#     assert response.json() == {'detail': 'User cannot be deleted with this data'}

@@ -15,7 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SchoolsComponent } from './schools/schools.component';
 import { IntendantsComponent } from './intendants/intendants.component';
 import { IntendantComponent } from './intendants/intendants/intendant.component';
-import { ErrorModalComponent } from './modals/error-modal/error-modal.component';
+import { ErrorModalComponent } from 'src/shared/modals/error-modal/error-modal.component';
+import { DownloadCSVButtonComponent } from 'src/shared/buttons/download-csv/download-csv.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ErrorModalComponent } from './modals/error-modal/error-modal.component'
     IntendantComponent,
     SchoolsComponent,
     ErrorModalComponent,
+    DownloadCSVButtonComponent,
   ],
   imports: [
     BrowserModule,

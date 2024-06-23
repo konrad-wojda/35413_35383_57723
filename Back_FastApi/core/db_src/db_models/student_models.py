@@ -1,4 +1,4 @@
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, UniqueConstraint
 from sqlalchemy.orm import relationship, mapped_column, Mapped
 from core.db_src.db_models.base_models import Base
 
@@ -8,8 +8,9 @@ class StudentModel(Base):
 
     id_student: Mapped[int] = mapped_column(primary_key=True)
     id_school: Mapped[int] = mapped_column(ForeignKey("schools.id_school"))
-    student_first_name: Mapped[int] = mapped_column(nullable=False, default="")
+    student_first_name: Mapped[str] = mapped_column(nullable=False, default="")
     student_last_name: Mapped[str] = mapped_column(nullable=False, default="")
+    student_class: Mapped[str] = mapped_column(nullable=False, default="")
 
     student__attendance_list = relationship("AttendanceListModel", back_populates="attendance_list__student")
     student__school = relationship("SchoolModel", back_populates="school__student")
@@ -26,3 +27,5 @@ class AttendanceListModel(Base):
 
     attendance_list__meal_type = relationship("MealTypeModel", back_populates="meal_type__attendance_list")
     attendance_list__student = relationship("StudentModel", back_populates="student__attendance_list")
+
+    __table_args__ = (UniqueConstraint('id_student', 'id_meal_type', 'date', name='_student_meal_date_uc'),)

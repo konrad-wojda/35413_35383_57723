@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { SchoolService } from '../services/intendants/school.service';
-import { SchoolData } from '../models/intendant/school.models';
+import { SchoolData } from 'src/shared/models/intendant/school.models';
+import { SchoolService } from 'src/shared/services/intendants/school.service';
 
 @Component({
   selector: 'app-schools',
