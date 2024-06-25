@@ -3,7 +3,6 @@ import { catchError, tap } from 'rxjs/operators';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { ApiService } from './api.service';
 import { Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +28,6 @@ export class AuthService {
         }
         if (response.status_code == 200) {
           localStorage.setItem('token', response.token);
-          localStorage.setItem('user_id', response.user_id);
           this._isLoggedIn$.next(true);
           return true;
         }
@@ -38,6 +36,10 @@ export class AuthService {
         return false;
       })
     );
+  }
+
+  isLoggedIn(): Observable<boolean> {
+    return this.isLoggedIn$;
   }
 
   editUser(body: any) {
@@ -74,5 +76,6 @@ export class AuthService {
 
   logout() {
     localStorage.clear();
+    sessionStorage.clear();
   }
 }

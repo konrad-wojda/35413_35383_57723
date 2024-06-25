@@ -1,3 +1,7 @@
 <div *ngIf="intendant">
-  <p>{{ intendant.email }}</p>
+  <p>Found intendant: {{ intendant.email }}</p>
+
+  <div *ngIf="!!intendant.id_school">
+    <p>Is admin of school: {{ intendant.id_school }}</p>
+  </div>
 </div>

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { SchoolData } from 'src/shared/models/intendant/school.models';
-import { SchoolService } from 'src/shared/services/intendants/school.service';
+import { UserDataResponse } from 'src/shared/models/intendant/user.models';
+import { UserStateService } from 'src/shared/services/states/UserStateService';
 
 @Component({
   selector: 'app-schools',
@@ -9,68 +8,11 @@ import { SchoolService } from 'src/shared/services/intendants/school.service';
   styleUrls: ['./schools.component.scss'],
 })
 export class SchoolsComponent {
-  properties: any[];
+  user: UserDataResponse;
 
-  form = new FormGroup({
-    name_of_school: new FormControl('', [
-      Validators.minLength(5),
-      Validators.required,
-    ]),
-    post_code: new FormControl(null, [
-      Validators.pattern(/^\d{2}-\d{3}$/),
-      Validators.required,
-    ]),
-    street_name: new FormControl('', [
-      Validators.minLength(2),
-      Validators.required,
-    ]),
-    street_number: new FormControl<number>(null, [
-      Validators.min(1),
-      Validators.max(10000),
-      Validators.required,
-    ]),
-  });
-
-  constructor(private schoolService: SchoolService) {}
-
-  submitForm() {
-    if (this.form.invalid) {
-      return;
-    }
-
-    this.form.value.post_code = Number(
-      this.form.value.post_code.replace('-', '')
-    );
-
-    this.schoolService.createSchool(this.form.value as SchoolData);
-  }
+  constructor(private userStateService: UserStateService) {}
 
   ngOnInit(): void {
-    this.properties = [
-      {
-        label: 'Name of school',
-        type: 'text',
-        placeholder: 'School name',
-        formControlName: 'name_of_school',
-      },
-      {
-        label: 'Post code',
-        type: 'text',
-        placeholder: '00-000',
-        formControlName: 'post_code',
-      },
-      {
-        label: 'Name of street',
-        type: 'text',
-        placeholder: 'Street Name',
-        formControlName: 'street_name',
-      },
-      {
-        label: 'Street number',
-        type: 'number',
-        placeholder: 'Street number',
-        formControlName: 'street_number',
-      },
-    ];
+    this.user = this.userStateService.currentUser;
   }
 }
