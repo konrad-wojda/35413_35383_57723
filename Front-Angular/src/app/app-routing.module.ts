@@ -34,14 +34,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'students',
-    component: IntendantsComponent,
-    canActivate: [AuthGuard, IntendantGuard],
-  },
-  {
     path: 'schools',
     component: SchoolsComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'students',
+    component: IntendantsComponent,
+    canActivate: [IntendantGuard],
   },
 ];
 

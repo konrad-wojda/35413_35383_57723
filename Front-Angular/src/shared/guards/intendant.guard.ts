@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/shared/services/api/auth.service';
-import { UserService } from 'src/shared/services/api/intendants/user.service';
-import { UserStateService } from 'src/shared/services/states/UserStateService';
+import { IntendantStateService } from '../services/states/IntendantStateService';
+import { IntendantService } from '../services/api/intendants/intendant.service';
+import { Observable, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,23 +11,26 @@ import { UserStateService } from 'src/shared/services/states/UserStateService';
 export class IntendantGuard {
   constructor(
     private authService: AuthService,
-    private userService: UserService,
-    private userStateService: UserStateService,
+    private intendantService: IntendantService,
+    private intendantStateService: IntendantStateService,
     private router: Router
   ) {}
 
-  canActivate(): boolean {
+  canActivate(): Observable<boolean> {
     // @TODO check state, than make call to api
-    // if (this.userStateService.currentUser) return true;
-    // if (this.authService.isLoggedIn()) {
-    //   this.userService.getData().subscribe((userData) => {
-    //     this.userStateService.setCurrentUser(userData);
-    //   });
-    //   return true;
-    // } else {
-    //   this.router.navigate(['/login']);
-    //   return false;
-    // }
-    return true;
+    if (this.intendantStateService.currentIntendant) return of(true);
+
+    return this.intendantService.getIntendant().pipe(
+      map((userData) => {
+        if (userData) {
+          this.intendantStateService.setCurrentIntendant(userData);
+
+          return true;
+        } else {
+          this.router.navigate(['/login']);
+          return false;
+        }
+      })
+    );
   }
 }
