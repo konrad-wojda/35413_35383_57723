@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ApiService } from 'src/shared/services/api.service';
+import { ApiService } from 'src/shared/services/api/api.service';
 
 @Component({
   selector: 'app-register',

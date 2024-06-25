@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserDataResponse } from 'src/shared/models/intendant/user.models';
-import { AuthService } from 'src/shared/services/auth.service';
-import { UserService } from 'src/shared/services/intendants/user.service';
+import { AuthService } from 'src/shared/services/api/auth.service';
+import { UserStateService } from 'src/shared/services/states/UserStateService';
 
 @Component({
   selector: 'app-user-page',
@@ -12,14 +12,12 @@ export class UserPageComponent implements OnInit {
   user: UserDataResponse;
 
   constructor(
-    private usersDataService: UserService,
+    private userStateService: UserStateService,
     private authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    this.usersDataService.getData().subscribe((data) => {
-      this.user = { ...data };
-    });
+    this.user = this.userStateService.currentUser;
   }
 
   delete(email: string) {

@@ -9,7 +9,5 @@ import { IntendantDataResponse } from 'src/shared/models/intendant/intendant.mod
 export class IntendantComponent implements OnInit {
   @Input() intendant: IntendantDataResponse;
 
-  ngOnInit(): void {
-    console.log(this.intendant);
-  }
+  ngOnInit(): void {}
 }

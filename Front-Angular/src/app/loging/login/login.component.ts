@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { AuthService } from 'src/shared/services/auth.service';
+import { AuthService } from 'src/shared/services/api/auth.service';
 import { ErrorModalComponent } from 'src/shared/modals/error-modal/error-modal.component';
 
 @Component({

@@ -12,11 +12,13 @@ import { UserPageComponent } from './user-page/user-page.component';
 import { UserDetailsComponent } from './user-page/user-details/user-details.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SchoolsComponent } from './schools/schools.component';
+import { AddSchoolComponent } from './schools/add-school/add-school.component';
 import { IntendantsComponent } from './intendants/intendants.component';
 import { IntendantComponent } from './intendants/intendants/intendant.component';
 import { ErrorModalComponent } from 'src/shared/modals/error-modal/error-modal.component';
 import { DownloadCSVButtonComponent } from 'src/shared/buttons/download-csv/download-csv.component';
+import { AddIntendantToSchoolComponent } from './intendants/add-intendant-to-school/add-intendant-to-school.component';
+import { SchoolsComponent } from './schools/schools.component';
 
 @NgModule({
   declarations: [
@@ -29,9 +31,11 @@ import { DownloadCSVButtonComponent } from 'src/shared/buttons/download-csv/down
     UserDetailsComponent,
     IntendantsComponent,
     IntendantComponent,
+    AddSchoolComponent,
     SchoolsComponent,
     ErrorModalComponent,
     DownloadCSVButtonComponent,
+    AddIntendantToSchoolComponent,
   ],
   imports: [
     BrowserModule,

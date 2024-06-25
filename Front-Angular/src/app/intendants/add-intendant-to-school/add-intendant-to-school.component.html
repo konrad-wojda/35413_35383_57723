@@ -1,0 +1,8 @@
+<p>Not associated with school {{ intendantEmail }}</p>
+
+<form (ngSubmit)="submitForm()" [formGroup]="form" autocomplete="off">
+  <label>School ID</label>
+  <input type="number" placeholder="School ID" formControlName="id_school" />
+  <br />
+  <button type="submit">Associated</button>
+</form>

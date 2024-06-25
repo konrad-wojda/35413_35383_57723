@@ -8,6 +8,8 @@ import { UserPageComponent } from './user-page/user-page.component';
 import { UserDetailsComponent } from './user-page/user-details/user-details.component';
 import { IntendantsComponent } from './intendants/intendants.component';
 import { SchoolsComponent } from './schools/schools.component';
+import { AuthGuard } from '../shared/guards/auth.guard';
+import { IntendantGuard } from 'src/shared/guards/intendant.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,18 +21,27 @@ const routes: Routes = [
   {
     path: 'user',
     component: UserPageComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'user/edit',
     component: UserDetailsComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'intendants',
     component: IntendantsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'students',
+    component: IntendantsComponent,
+    canActivate: [AuthGuard, IntendantGuard],
   },
   {
     path: 'schools',
     component: SchoolsComponent,
+    canActivate: [AuthGuard],
   },
 ];
 

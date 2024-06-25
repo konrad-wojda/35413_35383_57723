@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserDataResponse } from 'src/shared/models/intendant/user.models';
-import { AuthService } from 'src/shared/services/auth.service';
-import { UserService } from 'src/shared/services/intendants/user.service';
+import { AuthService } from 'src/shared/services/api/auth.service';
+import { UserService } from 'src/shared/services/api/intendants/user.service';
+import { UserStateService } from 'src/shared/services/states/UserStateService';
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
@@ -28,7 +29,7 @@ export class UserDetailsComponent implements OnInit {
   });
 
   constructor(
-    private usersDataService: UserService,
+    private userStateService: UserStateService,
     private authService: AuthService,
     private router: Router
   ) {}
@@ -84,42 +85,41 @@ export class UserDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.usersDataService.getData().subscribe((data) => {
-      this.user = { ...data };
-      this.properties = [
-        {
-          label: 'E-mail',
-          editingName: 'editingEmail',
-          isVisible: false,
-          type: 'email',
-          placeholder: this.user.email,
-          formControlName: 'email',
-        },
-        {
-          label: 'First name',
-          editingName: 'editingFirst',
-          isVisible: false,
-          type: 'text',
-          placeholder: this.user.first_name,
-          formControlName: 'first_name',
-        },
-        {
-          label: 'Last name',
-          editingName: 'editingLast',
-          isVisible: false,
-          type: 'text',
-          placeholder: this.user.last_name,
-          formControlName: 'last_name',
-        },
-        {
-          label: 'Password',
-          editingName: 'hashed_password',
-          isVisible: false,
-          type: 'password',
-          placeholder: '',
-          formControlName: 'hashed_password',
-        },
-      ];
-    });
+    const data = this.userStateService.currentUser;
+    this.user = { ...data };
+    this.properties = [
+      {
+        label: 'E-mail',
+        editingName: 'editingEmail',
+        isVisible: false,
+        type: 'email',
+        placeholder: this.user.email,
+        formControlName: 'email',
+      },
+      {
+        label: 'First name',
+        editingName: 'editingFirst',
+        isVisible: false,
+        type: 'text',
+        placeholder: this.user.first_name,
+        formControlName: 'first_name',
+      },
+      {
+        label: 'Last name',
+        editingName: 'editingLast',
+        isVisible: false,
+        type: 'text',
+        placeholder: this.user.last_name,
+        formControlName: 'last_name',
+      },
+      {
+        label: 'Password',
+        editingName: 'hashed_password',
+        isVisible: false,
+        type: 'password',
+        placeholder: '',
+        formControlName: 'hashed_password',
+      },
+    ];
   }
 }

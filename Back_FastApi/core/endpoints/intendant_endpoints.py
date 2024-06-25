@@ -151,14 +151,15 @@ async def get_intendant(token: BaseLogged = Depends(), db: _Session = Depends(ge
 
 
 @router_intendant.get("/find-by-email")
-async def find_intendant(email: str, db: _Session = Depends(get_db)) -> dict:
+async def find_intendant(email: str, token: str, db: _Session = Depends(get_db)) -> dict:
     """
     Looks from intendant by his email
     :param email: intendants' email to be found in DB
+    :param token: user JWT token
     :param db: Session of DB
     :return: IntendantModel without password
     """
-    intendant = await services.find_intendant(email, db)
+    intendant = await services.find_intendant(email, token, db)
     return intendant
 
 

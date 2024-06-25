@@ -7,4 +7,9 @@
   <input type="email" formControlName="email" />
   <button type="submit" class="submit">Search for intendant</button>
 </form>
-<app-intendant [intendant]="this.intendant$ | async" />
+<div *ngIf="!!this.intendant">
+  <app-intendant [intendant]="this.intendant" />
+</div>
+<div *ngIf="!!this.intendantEmail">
+  <app-add-intendant-to-school [intendantEmail]="this.intendantEmail" />
+</div>

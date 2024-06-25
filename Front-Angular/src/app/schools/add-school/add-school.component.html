@@ -1,0 +1,17 @@
+<h2>Add new school</h2>
+<form
+  (ngSubmit)="submitForm()"
+  [formGroup]="form"
+  autocomplete="off"
+  class="container"
+>
+  <div *ngFor="let value of properties">
+    <label>{{ value?.label }}</label>
+    <input
+      type="{{ value?.type }}"
+      [placeholder]="value?.placeholder"
+      [formControlName]="value?.formControlName"
+    />
+  </div>
+  <button type="submit" class="submit">Create school</button>
+</form>

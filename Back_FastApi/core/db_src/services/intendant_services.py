@@ -8,6 +8,7 @@ from passlib import hash
 from core.db_src.db_models.intendant_models import UserModel, SchoolModel, IntendantModel
 import core.db_src.schemas.intendant_schemas as schemas
 from core.db_src.functions.jwt_functions import encode_jwt, decode_jwt
+from core.db_src.schemas import BaseLogged
 
 
 async def get_user_by_email(email: str, db: _Session) -> Type[UserModel] | None:
@@ -192,13 +193,12 @@ async def get_current_intendant(
 ) -> IntendantModel:
     """
     Gets data from DB about intendant with token
-    :param token:
+    :param token: user JWT token
     :type db: Session of DB
     :return: Intendant data from DB
     """
     try:
         payload = decode_jwt(token)
-        print(payload["id_user"])
         intendant = db.query(IntendantModel).filter(IntendantModel.id_user == payload["id_user"]).first().__dict__
         intendant.pop('_sa_instance_state')
     except:
@@ -208,14 +208,21 @@ async def get_current_intendant(
 
 async def find_intendant(
         email: str,
+        token: str | BaseLogged,
         db: _Session,
 ) -> dict:
     """
     Gets data about intendant from DB with email
+    :param token: user JWT token
     :param email: intendant email
     :param db: Session of DB
     :return: intendant data without password
     """
+    payload = decode_jwt(token)
+    user = db.query(UserModel).filter(UserModel.id_user == payload["id_user"]).first()
+    if not user.is_admin:
+        raise HTTPException(status_code=404, detail="Token have no admin role")
+
     try:
         result = (db.query(UserModel, IntendantModel)
                   .filter(UserModel.email == email)
@@ -226,7 +233,7 @@ async def find_intendant(
             intendant_user = {**intendant.__dict__, **user.__dict__}
         intendant_user.pop('hashed_password')
     except:
-        raise HTTPException(status_code=404, detail="No such a email")
+        raise HTTPException(status_code=404, detail="No school associated with this email")
     return intendant_user
 
 
