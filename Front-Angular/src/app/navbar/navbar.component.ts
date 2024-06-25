@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { UserDataResponse } from 'src/shared/models/intendant/user.models';
 import { AuthService } from 'src/shared/services/api/auth.service';
-import { IntendantService } from 'src/shared/services/api/intendants/intendant.service';
 import { UserStateService } from 'src/shared/services/states/UserStateService';
 
 @Component({
@@ -18,6 +18,9 @@ export class NavbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.user = this.userStateService.currentUser;
+    this.userStateService.userData$.subscribe((userData) => {
+      if (userData) this.user = userData;
+    });
+    if (!this.user) this.user = this.userStateService.currentUser;
   }
 }

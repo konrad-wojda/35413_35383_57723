@@ -3,6 +3,8 @@ import { catchError, tap } from 'rxjs/operators';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { ApiService } from './api.service';
 import { Router } from '@angular/router';
+import { UserStateService } from '../states/UserStateService';
+import { UserService } from './intendants/user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +13,12 @@ export class AuthService {
   private _isLoggedIn$ = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this._isLoggedIn$.asObservable();
 
-  constructor(private apiService: ApiService, private router: Router) {
+  constructor(
+    private apiService: ApiService,
+    private userStateService: UserStateService,
+    private userService: UserService,
+    private router: Router
+  ) {
     const token = localStorage.getItem('token');
     this._isLoggedIn$.next(!!token);
   }
@@ -28,6 +35,7 @@ export class AuthService {
         }
         if (response.status_code == 200) {
           localStorage.setItem('token', response.token);
+          this.getUserData();
           this._isLoggedIn$.next(true);
           return true;
         }
@@ -40,6 +48,12 @@ export class AuthService {
 
   isLoggedIn(): Observable<boolean> {
     return this.isLoggedIn$;
+  }
+
+  getUserData() {
+    this.userService.getData().subscribe((userData) => {
+      this.userStateService.setCurrentUser(userData);
+    });
   }
 
   editUser(body: any) {
