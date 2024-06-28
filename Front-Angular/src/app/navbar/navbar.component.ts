@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { UserDataResponse } from 'src/shared/models/intendant/user.models';
 import { AuthService } from 'src/shared/services/api/auth.service';
 import { UserStateService } from 'src/shared/services/states/UserStateService';

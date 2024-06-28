@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ErrorModalComponent } from 'src/shared/modals/error-modal/error-modal.component';
-import { AuthService } from 'src/shared/services/api/auth.service';
 import { IntendantService } from 'src/shared/services/api/intendants/intendant.service';
 
 @Component({

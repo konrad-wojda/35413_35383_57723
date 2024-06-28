@@ -1,12 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+@use "@angular/material" as mat;
+
 html {
   font-size: 10px;
+  // background-color: #888;
+
+  &,
+  body {
+    height: 100%;
+  }
 
   body {
-    margin: 1rem;
-    font-family: "Gill Sans";
-    background-color: #777;
-    font-size: 1.5rem;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    margin: 0;
+    padding: 30px;
   }
 }
 
@@ -18,3 +24,21 @@ mat-dialog-container {
   left: initial !important;
   position: fixed !important;
 }
+
+@include mat.core();
+
+$my-primary: mat.define-palette(mat.$indigo-palette, 500);
+$my-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+$my-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $my-primary,
+      accent: $my-accent,
+    ),
+    typography: mat.define-typography-config(),
+    density: 0,
+  )
+);
+
+@include mat.all-component-themes($my-theme);

@@ -3,12 +3,13 @@
     <a href="/">Home</a>
 
     <ng-template [ngIf]="user?.is_admin" [ngIfElse]="notAdmin">
-      <a href="/intendants">Intendants</a>
       <a href="/schools">Schools</a>
+      <a href="/intendants">Intendants</a>
     </ng-template>
 
     <ng-template #notAdmin>
       <a href="/students">Students</a>
+      <a href="/attendance-list">Attendance List</a>
     </ng-template>
 
     <a href="/user">User</a>

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-download-csv-button',
@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./download-csv.component.scss'],
 })
 export class DownloadCSVButtonComponent {
+  @Input() id_school: number;
   constructor(private http: HttpClient) {}
 
   downloadCsv() {
@@ -15,7 +16,7 @@ export class DownloadCSVButtonComponent {
 
     this.http
       .get(
-        `http://127.0.0.1:8000/api/attendance-list/get-file?token=${token}&date=${date}`,
+        `http://127.0.0.1:8000/api/attendance-list/get-file?token=${token}&date=${date}&id_school=${this.id_school}`,
         {
           responseType: 'blob',
         }

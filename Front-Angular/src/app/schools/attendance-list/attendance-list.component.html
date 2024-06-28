@@ -1,0 +1,27 @@
+Lista obecności
+<mat-form-field appearance="fill" class="example-form-field">
+  <mat-label>Wybierz datę</mat-label>
+  <input
+    matInput
+    [matDatepicker]="datepicker"
+    (dateChange)="onDateSelected($event)"
+  />
+  <mat-hint>DD.MM.RRRR</mat-hint>
+  <mat-datepicker-toggle
+    matIconSuffix
+    [for]="datepicker"
+  ></mat-datepicker-toggle>
+  <mat-datepicker #datepicker>
+    <mat-datepicker-actions>
+      <button mat-button matDatepickerCancel>Anuluj</button>
+      <button mat-raised-button color="primary" matDatepickerApply>
+        Wyszukaj
+      </button>
+    </mat-datepicker-actions>
+  </mat-datepicker>
+</mat-form-field>
+
+<app-attendance-list-show
+  [formattedDate]="formattedDate"
+  *ngIf="!!formattedDate"
+/>

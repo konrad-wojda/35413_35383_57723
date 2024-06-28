@@ -1,0 +1,18 @@
+<h3>Dodaj nowego ucznia</h3>
+
+<form (ngSubmit)="submitForm()" [formGroup]="form" autocomplete="off">
+  <label>Imię</label>
+  <input type="text" placeholder="Jan" formControlName="student_first_name" />
+  <br />
+  <label>Nazwisko</label>
+  <input
+    type="text"
+    placeholder="Kowalski"
+    formControlName="student_last_name"
+  />
+  <br />
+  <label>Klasa</label>
+  <input type="text" placeholder="1a" formControlName="student_class" />
+  <br />
+  <button type="submit">Dodaj</button>
+</form>

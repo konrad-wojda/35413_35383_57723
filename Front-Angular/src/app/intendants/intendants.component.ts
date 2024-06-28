@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
 import { ErrorModalComponent } from 'src/shared/modals/error-modal/error-modal.component';
 import { IntendantDataResponse } from 'src/shared/models/intendant/intendant.models';
 import { IntendantService } from 'src/shared/services/api/intendants/intendant.service';
