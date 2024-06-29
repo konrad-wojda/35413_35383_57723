@@ -46,7 +46,7 @@ export class AddSchoolComponent {
           return;
         }
       }
-      this.openErrorModal('Unexpected error');
+      this.openErrorModal('Nieprzewidziany błąd');
       return;
     }
 
@@ -60,27 +60,27 @@ export class AddSchoolComponent {
   ngOnInit(): void {
     this.properties = [
       {
-        label: 'Name of school',
+        label: 'Nazwa szkoły',
         type: 'text',
-        placeholder: 'School name',
+        placeholder: 'nazwa szkoły',
         formControlName: 'name_of_school',
       },
       {
-        label: 'Post code',
+        label: 'Kod pocztowy',
         type: 'text',
         placeholder: '00-000',
         formControlName: 'post_code',
       },
       {
-        label: 'Name of street',
+        label: 'Nazwa ulicy',
         type: 'text',
-        placeholder: 'Street Name',
+        placeholder: 'nazwa ulicy',
         formControlName: 'street_name',
       },
       {
-        label: 'Street number',
+        label: 'Numer budynku',
         type: 'number',
-        placeholder: 'Street number',
+        placeholder: 'numer domu',
         formControlName: 'street_number',
       },
     ];

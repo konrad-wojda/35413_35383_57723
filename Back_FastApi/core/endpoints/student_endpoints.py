@@ -18,6 +18,12 @@ router_student = APIRouter(
 )
 
 
+@router_student.get("/get")
+async def get_students(form_data: schemas.GetStudentListSchema = Depends(),
+                              db: _Session = Depends(get_db)) -> callable:
+    return await services.get_students(form_data, db)
+
+
 @router_student.post("/add")
 async def create_student(form_data: schemas.StudentSchema,
                           db: _Session = Depends(get_db)) -> callable:

@@ -1,18 +1,51 @@
-.navbar {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
+$height: 7.4rem;
+$header-width: 23rem;
 
-  a {
-    border: #bbb solid;
-    border-width: 1px;
-    border-radius: 0.5rem;
-    background-color: rgb(204, 204, 204);
-    color: rgb(243, 243, 243);
-    display: table-cell;
-    font-size: 1.8rem;
-    padding: 2px 2rem;
-    text-align: center;
-    text-decoration: none;
+.navbar {
+  &__header {
+    font-family: Kavoon;
+    font-size: 2.5rem;
+    display: inline-block;
+    width: $header-width;
+    margin: 2.3rem 0 2.3rem 3.8rem;
   }
+
+  &__items {
+    height: $height;
+    float: right;
+    display: flex;
+    flex-direction: row;
+    width: calc(100% - $header-width - 13.8rem);
+
+    a {
+      color: #2d2e2e;
+      font-size: 1.6rem;
+      text-decoration: none;
+      font-family: Inter;
+      min-width: 10rem;
+      height: $height;
+
+      padding: 0 1.4rem;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        background-color: #eee;
+      }
+
+      &:first-child {
+        margin-left: auto;
+      }
+
+      &:last-child {
+        margin-right: 3.8rem;
+      }
+    }
+  }
+}
+
+.url__icon {
+  min-width: auto !important;
 }

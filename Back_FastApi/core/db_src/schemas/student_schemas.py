@@ -13,9 +13,12 @@ class StudentSchema(BaseLogged):
         orm_mode = True
 
 
-class GetAttendanceListSchema(BaseLogged):
-    date: str
+class GetStudentListSchema(BaseLogged):
     id_school: int
+
+
+class GetAttendanceListSchema(GetStudentListSchema):
+    date: str
 
 
 class StudentAttendanceSchema(BaseModel):

@@ -12,7 +12,10 @@ import { ErrorModalComponent } from 'src/shared/modals/error-modal/error-modal.c
 })
 export class LoginComponent {
   form = new FormGroup({
-    email: new FormControl(null, Validators.required),
+    email: new FormControl(null, [
+      Validators.required,
+      Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+    ]),
     password: new FormControl(null, Validators.required),
   });
 
@@ -21,6 +24,20 @@ export class LoginComponent {
     private router: Router,
     private dialog: MatDialog
   ) {}
+
+  getErrorMessageEmail() {
+    if (this.form.controls.email.hasError('required')) {
+      return 'Musisz uzupełnić adres e-mail';
+    }
+
+    return this.form.controls.email.hasError('pattern')
+      ? 'E-mail jest niepoprawny'
+      : '';
+  }
+
+  getErrorMessagePassword() {
+    return 'Musisz uzupełnić hasło';
+  }
 
   submitForm() {
     if (this.form.invalid) {
@@ -33,7 +50,7 @@ export class LoginComponent {
           this.router.navigate(['/']);
         },
         error: (error) => {
-          this.openErrorModal(error.error.detail);
+          this.openErrorModal('Logowanie nie powidoło się');
         },
       });
   }

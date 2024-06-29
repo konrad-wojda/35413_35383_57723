@@ -1,15 +1,32 @@
-<form
-  (ngSubmit)="submitSearch()"
-  [formGroup]="searchForm"
-  autocomplete="off"
-  class="container"
->
-  <input type="email" formControlName="email" />
-  <button type="submit" class="submit">Search for intendant</button>
-</form>
-<div *ngIf="!!this.intendant">
-  <app-intendant [intendant]="this.intendant" />
-</div>
-<div *ngIf="!!this.intendantEmail">
-  <app-add-intendant-to-school [intendantEmail]="this.intendantEmail" />
+<div class="side">
+  <div class="side--left text__container">
+    <h1 class="text__header">Wyszukaj intendenta</h1>
+
+    <form
+      (ngSubmit)="submitSearch()"
+      [formGroup]="searchForm"
+      autocomplete="off"
+      class="container"
+    >
+      <label>E-mail</label>
+      <input
+        class="text__input"
+        type="email"
+        formControlName="email"
+        placeholder="przyklad@edu.pl"
+      />
+      <br />
+      <button type="submit" class="text__button gradient-button">
+        Wyszukaj
+      </button>
+    </form>
+    <div *ngIf="!!this.intendant">
+      <app-intendant [intendant]="this.intendant" />
+    </div>
+    <div *ngIf="!!this.intendantEmail">
+      <app-add-intendant-to-school [intendantEmail]="this.intendantEmail" />
+    </div>
+  </div>
+
+  <div class="side--right"></div>
 </div>

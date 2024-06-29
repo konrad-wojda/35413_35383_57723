@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ErrorModalComponent } from 'src/shared/modals/error-modal/error-modal.component';
-import { AuthService } from 'src/shared/services/api/auth.service';
 import { IntendantService } from 'src/shared/services/api/intendants/intendant.service';
 
 @Component({
@@ -14,7 +13,7 @@ import { IntendantService } from 'src/shared/services/api/intendants/intendant.s
 export class AddIntendantToSchoolComponent {
   @Input() intendantEmail: string;
 
-  form = new FormGroup({
+  addIntendantForm = new FormGroup({
     id_school: new FormControl(null, Validators.required),
   });
 
@@ -25,14 +24,14 @@ export class AddIntendantToSchoolComponent {
   ) {}
 
   submitForm() {
-    if (this.form.invalid) {
+    if (this.addIntendantForm.invalid) {
       return;
     }
     // @TODO zmienić typ
     this.intendantService
       .registerAdminToSchool(
-        this.form.get('email')?.value,
-        this.form.get('password')?.value
+        this.addIntendantForm.get('email')?.value,
+        this.addIntendantForm.get('password')?.value
       )
       .subscribe({
         next: (response) => {

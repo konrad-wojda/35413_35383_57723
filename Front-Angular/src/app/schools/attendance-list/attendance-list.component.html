@@ -1,0 +1,42 @@
+Lista obecności
+
+<div *ngIf="!formattedDate">Proszę uzupełnić interesującą datę</div>
+<mat-form-field appearance="outline" class="">
+  <mat-label>Wybierz datę</mat-label>
+  <input
+    matInput
+    [matDatepicker]="datepicker"
+    (dateChange)="onDateSelected($event)"
+  />
+  <mat-hint>DD.MM.RRRR</mat-hint>
+  <mat-datepicker-toggle
+    matIconSuffix
+    [for]="datepicker"
+  ></mat-datepicker-toggle>
+  <mat-datepicker #datepicker>
+    <mat-datepicker-actions>
+      <button mat-button matDatepickerCancel>Anuluj</button>
+      <button mat-raised-button color="primary" matDatepickerApply>
+        Wyszukaj
+      </button>
+    </mat-datepicker-actions>
+  </mat-datepicker>
+</mat-form-field>
+
+<div *ngIf="!!selectedDate">
+  <div *ngIf="attendanceList?.length; else emptyList">
+    <app-attendance-list-show
+      [formattedDate]="formattedDate"
+      [attendanceList]="attendanceList"
+      [displayedColumns]="displayedColumns"
+    />
+  </div>
+
+  <ng-template #emptyList>
+    <app-attendance-list-empty
+      [formattedDate]="formattedDate"
+      [displayedColumns]="displayedColumns"
+      [meals]="meals"
+    />
+  </ng-template>
+</div>

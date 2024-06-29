@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
 import { ErrorModalComponent } from 'src/shared/modals/error-modal/error-modal.component';
 import { IntendantDataResponse } from 'src/shared/models/intendant/intendant.models';
 import { IntendantService } from 'src/shared/services/api/intendants/intendant.service';
@@ -28,7 +27,7 @@ export class IntendantsComponent {
 
   submitSearch() {
     if (this.searchForm.invalid) {
-      this.openErrorModal('Please fill email correctly.');
+      this.openErrorModal('Proszę wypełnić poprawnie');
       return;
     }
 
@@ -40,6 +39,14 @@ export class IntendantsComponent {
           this.intendantEmail = null;
         },
         error: (error: any) => {
+          if (
+            error.status === 404 &&
+            error.error.detail === 'User not registered'
+          ) {
+            this.openErrorModal(
+              'Użytkownik o takim adresie e-mail nie jest zarejestrowany'
+            );
+          }
           if (
             error.status === 404 &&
             error.error.detail === 'No school associated with this email'

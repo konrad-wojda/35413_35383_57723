@@ -1,0 +1,10 @@
+$nav-height: 7.4rem;
+
+.navbar {
+  display: block;
+  height: $nav-height;
+}
+
+.router-outlet {
+  height: calc(100% - $nav-height);
+}

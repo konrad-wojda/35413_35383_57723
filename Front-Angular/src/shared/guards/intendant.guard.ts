@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/shared/services/api/auth.service';
 import { IntendantStateService } from '../services/states/IntendantStateService';
 import { IntendantService } from '../services/api/intendants/intendant.service';
 import { Observable, map, of } from 'rxjs';
@@ -10,7 +9,6 @@ import { Observable, map, of } from 'rxjs';
 })
 export class IntendantGuard {
   constructor(
-    private authService: AuthService,
     private intendantService: IntendantService,
     private intendantStateService: IntendantStateService,
     private router: Router

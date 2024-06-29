@@ -1,8 +1,12 @@
-<p>Not associated with school {{ intendantEmail }}</p>
+<h6 class="red-title">Intendent nie ma przypisanej szkoły</h6>
 
-<form (ngSubmit)="submitForm()" [formGroup]="form" autocomplete="off">
-  <label>School ID</label>
-  <input type="number" placeholder="School ID" formControlName="id_school" />
+<form
+  (ngSubmit)="submitForm()"
+  [formGroup]="addIntendantForm"
+  autocomplete="off"
+>
+  <label>Przypisz szkołę</label>
+  <input type="number" placeholder="id szkoły" formControlName="id_school" />
   <br />
-  <button type="submit">Associated</button>
+  <button type="submit" class="text__button gradient-button">Przypisz</button>
 </form>

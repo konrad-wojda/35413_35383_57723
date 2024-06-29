@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-download-csv-button',
@@ -7,15 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./download-csv.component.scss'],
 })
 export class DownloadCSVButtonComponent {
+  @Input() id_school: number;
+  @Input() date: string;
   constructor(private http: HttpClient) {}
 
   downloadCsv() {
-    const date: string = '2024-06-17';
     const token = localStorage.getItem('token');
 
     this.http
       .get(
-        `http://127.0.0.1:8000/api/attendance-list/get-file?token=${token}&date=${date}`,
+        `http://127.0.0.1:8000/api/attendance-list/get-file?token=${token}&date=${this.date}&id_school=${this.id_school}`,
         {
           responseType: 'blob',
         }
@@ -28,7 +29,7 @@ export class DownloadCSVButtonComponent {
         const url = window.URL.createObjectURL(utf8Blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = `${date}_attendance-list.csv`;
+        link.download = `${this.date}_attendance-list.csv`;
 
         link.click();
         window.URL.revokeObjectURL(url);
