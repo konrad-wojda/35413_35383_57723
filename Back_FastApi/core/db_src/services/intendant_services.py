@@ -223,12 +223,16 @@ async def find_intendant(
     if not user.is_admin:
         raise HTTPException(status_code=404, detail="Token have no admin role")
 
+    user = db.query(UserModel).filter(UserModel.email == email).first()
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not registered")
     try:
         result = (db.query(UserModel, IntendantModel)
-                  .filter(UserModel.email == email)
+                  .filter(UserModel.id_user == user.id_user)
                   .filter(IntendantModel.id_user == UserModel.id_user)
                   .all())
         intendant_user = {}
+
         for user, intendant in result:
             intendant_user = {**intendant.__dict__, **user.__dict__}
         intendant_user.pop('hashed_password')
@@ -246,6 +250,7 @@ async def create_intendant_school_admin(intendant: schemas.Intendant, db: _Sessi
     """
     admin = await get_current_user(intendant.token, db)
     if admin["is_admin"]:
+        print(intendant.id_user)
         intendant_obj = IntendantModel(is_main_admin=True, id_user=intendant.id_user, id_school=intendant.id_school)
         db.add(intendant_obj)
         db.commit()

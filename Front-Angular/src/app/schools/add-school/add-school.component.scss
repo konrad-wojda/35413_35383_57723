@@ -1,0 +1,13 @@
+.side {
+  display: grid;
+  grid-template-columns: 1fr 0.8fr;
+  height: 100%;
+
+  &--left,
+  &--right {
+    display: inline-block;
+  }
+  &--right {
+    background-color: black;
+  }
+}

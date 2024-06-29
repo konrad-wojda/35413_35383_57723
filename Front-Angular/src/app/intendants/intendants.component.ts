@@ -27,7 +27,7 @@ export class IntendantsComponent {
 
   submitSearch() {
     if (this.searchForm.invalid) {
-      this.openErrorModal('Please fill email correctly.');
+      this.openErrorModal('Proszę wypełnić poprawnie');
       return;
     }
 
@@ -39,6 +39,14 @@ export class IntendantsComponent {
           this.intendantEmail = null;
         },
         error: (error: any) => {
+          if (
+            error.status === 404 &&
+            error.error.detail === 'User not registered'
+          ) {
+            this.openErrorModal(
+              'Użytkownik o takim adresie e-mail nie jest zarejestrowany'
+            );
+          }
           if (
             error.status === 404 &&
             error.error.detail === 'No school associated with this email'

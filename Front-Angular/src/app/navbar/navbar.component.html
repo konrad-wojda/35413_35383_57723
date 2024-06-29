@@ -1,25 +1,39 @@
-<ng-template [ngIf]="authService.isLoggedIn$ | async" [ngIfElse]="notLogged">
-  <div class="navbar">
-    <a href="/">Home</a>
+<div class="navbar">
+  <p class="navbar__header">Intendent EduManager</p>
+  <div class="navbar__items">
+    <a href="/">Strona główna</a>
+    <ng-template
+      [ngIf]="authService.isLoggedIn$ | async"
+      [ngIfElse]="notLogged"
+    >
+      <ng-template [ngIf]="user?.is_admin" [ngIfElse]="notAdmin">
+        <a href="/schools">Szkoły</a>
+        <a href="/intendants">Intendenci</a>
+      </ng-template>
 
-    <ng-template [ngIf]="user?.is_admin" [ngIfElse]="notAdmin">
-      <a href="/schools">Schools</a>
-      <a href="/intendants">Intendants</a>
+      <ng-template #notAdmin>
+        <a href="/students">Uczniowie</a>
+        <a href="/attendance-list">Lista Obecności</a>
+      </ng-template>
+
+      <a href="/user" class="url__icon">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Example home icon"
+          fontIcon="account_box"
+        ></mat-icon>
+      </a>
+      <a href="/" (click)="authService.logout()" class="url__icon">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Example home icon"
+          fontIcon="logout"
+        ></mat-icon>
+      </a>
     </ng-template>
-
-    <ng-template #notAdmin>
-      <a href="/students">Students</a>
-      <a href="/attendance-list">Attendance List</a>
+    <ng-template #notLogged>
+      <a href="/login">Logowanie</a>
+      <a href="/register">Rejestracja</a>
     </ng-template>
-
-    <a href="/user">User</a>
-    <a href="/" (click)="authService.logout()">Logout</a>
   </div>
-</ng-template>
-<ng-template #notLogged>
-  <div class="navbar">
-    <a href="/">Home</a>
-    <a href="/login">Login</a>
-    <a href="/register">Register</a>
-  </div>
-</ng-template>
+</div>

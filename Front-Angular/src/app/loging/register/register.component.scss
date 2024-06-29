@@ -1,0 +1,13 @@
+.side {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  height: 100%;
+
+  &--left,
+  &--right {
+    display: inline-block;
+  }
+  &--right {
+    background-image: url("../../../assets/images/study.png");
+  }
+}

@@ -11,7 +11,7 @@
         first ? '' : element[col] === 'Obecny' ? 'obecny' : 'nieobecny'
       "
     >
-      {{ element[col] }}
+      {{ first ? element[col] : element[col] }}
     </td>
   </ng-container>
 
@@ -20,4 +20,5 @@
 </table>
 <app-download-csv-button
   [id_school]="intendantData.id_school"
+  [date]="formattedDate"
 ></app-download-csv-button>

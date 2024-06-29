@@ -1,13 +1,41 @@
-<form (ngSubmit)="submitForm()" [formGroup]="form" autocomplete="off">
-  <label>E-mail</label>
-  <input type="text" placeholder="Your email" formControlName="email" />
-  <br />
-  <label>Password</label>
-  <input
-    type="password"
-    placeholder="Your password"
-    formControlName="password"
-  />
-  <br />
-  <button type="submit">Login</button>
-</form>
+<div class="side">
+  <div class="side--left text__container">
+    <h1 class="text__header">Logowanie</h1>
+
+    <form (ngSubmit)="submitForm()" [formGroup]="form" autocomplete="off">
+      <mat-form-field appearance="outline">
+        <mat-label>E-mail</mat-label>
+        <input
+          matInput
+          placeholder="przyklad@edu.pl"
+          formControlName="email"
+          type="email"
+          required
+        />
+        <mat-error *ngIf="form.controls.email.invalid">{{
+          getErrorMessageEmail()
+        }}</mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field appearance="outline">
+        <mat-label>Hasło</mat-label>
+        <input
+          matInput
+          placeholder="hasło"
+          formControlName="password"
+          type="password"
+          required
+        />
+        <mat-error *ngIf="form.controls.password.invalid">{{
+          getErrorMessagePassword()
+        }}</mat-error>
+      </mat-form-field>
+      <br />
+      <button type="submit" class="text__button gradient-button">
+        Zaloguj
+      </button>
+    </form>
+  </div>
+
+  <div class="side--right"></div>
+</div>

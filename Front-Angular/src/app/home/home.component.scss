@@ -1,0 +1,39 @@
+.side {
+  display: grid;
+  grid-template-columns: 1fr 0.8fr;
+  height: 100%;
+
+  &--left {
+    position: relative;
+  }
+
+  &--left,
+  &--right {
+    display: inline-block;
+  }
+  &--right {
+    background-image: url("../../assets/images/lemon.png");
+  }
+}
+
+.square {
+  width: 60%;
+  border-radius: 0.4rem;
+  box-shadow: 0px 10px 40px -10px rgba(66, 68, 90, 1);
+  position: absolute;
+  top: 20%;
+  left: 20%;
+
+  &__header {
+    font-weight: bold;
+    font-size: 2rem;
+    background-color: #e0e0e0;
+    padding: 1rem 2.2rem;
+  }
+
+  &__description {
+    padding: 1rem 2.2rem;
+    font-size: 1.3rem;
+    text-align: left;
+  }
+}

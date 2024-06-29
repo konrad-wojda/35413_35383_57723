@@ -12,10 +12,10 @@ import {
 export class StudentService {
   constructor(private http: HttpClient) {}
 
-  getStudents(id_school: number): Observable<StudentsResponse> {
+  getStudents(id_school: number): Observable<StudentsResponse[]> {
     const token = localStorage.getItem('token');
     return this.http
-      .get<StudentsResponse>(
+      .get<StudentsResponse[]>(
         `http://127.0.0.1:8000/api/student/get?id_school=${id_school}&token=${token}`
       )
       .pipe((data) => {

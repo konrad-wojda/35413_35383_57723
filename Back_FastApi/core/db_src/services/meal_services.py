@@ -1,10 +1,6 @@
-from fastapi import HTTPException
-from sqlalchemy import select
 from sqlalchemy.orm import Session as _Session
 
-from core.db_src.db_models import UserModel, IntendantModel, SchoolModel, MealTypeModel
-from core.db_src.db_models.student_models import StudentModel, AttendanceListModel
-from core.db_src.functions.roles_functions import get_intendant_data
+from core.db_src.db_models import  MealTypeModel
 
 
 async def get_meal_types(db: _Session) -> list[dict]:

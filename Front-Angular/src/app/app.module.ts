@@ -1,14 +1,16 @@
-import { NgModule } from '@angular/core';
-import { MatDialogModule } from '@angular/material/dialog';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule } from '@angular/material/table';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 
 import { DownloadCSVButtonComponent } from 'src/shared/buttons/download-csv/download-csv.component';
 import { ErrorModalComponent } from 'src/shared/modals/error-modal/error-modal.component';
@@ -23,13 +25,12 @@ import { RegisterComponent } from './loging/register/register.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AddSchoolComponent } from './schools/add-school/add-school.component';
 import { AddStudentsComponent } from './schools/add-students/add-students.component';
+import { AttendanceListEmptyComponent } from './schools/attendance-list/attendance-list-empty/attendance-list-empty.component';
+import { AttendanceListShowComponent } from './schools/attendance-list/attendance-list-show/attendance-list-show.component';
 import { AttendanceListComponent } from './schools/attendance-list/attendance-list.component';
 import { SchoolsComponent } from './schools/schools.component';
 import { UserDetailsComponent } from './user-page/user-details/user-details.component';
 import { UserPageComponent } from './user-page/user-page.component';
-import { AttendanceListEmptyComponent } from './schools/attendance-list/attendance-list-empty/attendance-list-empty.component';
-import { AttendanceListShowComponent } from './schools/attendance-list/attendance-list-show/attendance-list-show.component';
-import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
     MatFormFieldModule,
     MatNativeDateModule,
     MatInputModule,
+    MatIconModule,
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pl-PL' }],
   bootstrap: [AppComponent],
