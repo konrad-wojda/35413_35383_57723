@@ -1,0 +1,7 @@
+<div *ngIf="intendant">
+  <p class="response-text">Intendent znaleziony: {{ intendant.email }}</p>
+
+  <div *ngIf="!!intendant.id_school">
+    <p class="response-text">Jest adminem szkoły: {{ intendant.id_school }}</p>
+  </div>
+</div>

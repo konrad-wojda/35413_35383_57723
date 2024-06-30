@@ -83,9 +83,7 @@ export class AttendanceListEmptyComponent implements OnChanges {
     };
 
     this.attendanceListService.addSingleDayAttendance(payload).subscribe({
-      next: (response: boolean) => {
-        console.log(response);
-      },
+      next: (response: boolean) => {},
       error: (error: any) => {
         this.openErrorModal('Lista obecności nie została zapisana');
       },

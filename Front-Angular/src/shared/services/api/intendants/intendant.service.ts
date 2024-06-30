@@ -20,7 +20,7 @@ export class IntendantService {
           return data;
         },
         catchError((error: HttpErrorResponse) => {
-          console.log(error);
+          console.error(error);
 
           throw error;
         })
@@ -38,7 +38,7 @@ export class IntendantService {
           return data;
         },
         catchError((error: HttpErrorResponse) => {
-          console.log(error);
+          console.error(error);
 
           throw error;
         })
@@ -47,11 +47,11 @@ export class IntendantService {
 
   registerAdminToSchool(
     id_school: number,
-    id_intendant: number
+    intendant_email: string
   ): Observable<IntendantDataResponse> {
     const token = localStorage.getItem('token');
-    const id_user = id_intendant;
-    const body = { id_school, id_user, token };
+    const email = intendant_email;
+    const body = { id_school, email, token };
     return this.http.post<IntendantDataResponse>(
       `http://127.0.0.1:8000/api/intendant/register-admin`,
       body

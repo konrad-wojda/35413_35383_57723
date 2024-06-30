@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { IntendantStateService } from '../services/states/IntendantStateService';
 import { IntendantService } from '../services/api/intendants/intendant.service';
-import { Observable, map, of } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +28,10 @@ export class IntendantGuard {
           this.router.navigate(['/login']);
           return false;
         }
+      }),
+      catchError((error) => {
+        this.router.navigate(['/login']);
+        return of(false);
       })
     );
   }

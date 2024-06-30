@@ -57,14 +57,14 @@ export class AuthService {
   }
 
   editUser(body: any) {
-    body['user_id'] = localStorage.getItem('user_id');
+    body['id_user'] = localStorage.getItem('id_user');
     body['token'] = localStorage.getItem('token');
 
     return this.apiService.editUser(body).pipe().subscribe();
   }
 
   deleteUser(body: any) {
-    body['user_id'] = parseInt(localStorage.getItem('user_id'));
+    body['id_user'] = parseInt(localStorage.getItem('id_user'));
 
     return this.apiService
       .deleteUser(body)

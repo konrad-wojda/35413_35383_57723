@@ -7,4 +7,5 @@ $nav-height: 7.4rem;
 
 .router-outlet {
   height: calc(100% - $nav-height);
+  overflow-y: scroll;
 }

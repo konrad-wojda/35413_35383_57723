@@ -1,20 +1,44 @@
-<form
-  (ngSubmit)="submitForm()"
-  [formGroup]="form"
-  autocomplete="off"
-  class="container"
->
-  <div *ngFor="let value of properties">
-    <label>{{ value?.label }}</label>
-    <button (click)="reverse(value?.editingName)" type="button">
-      Change value
-    </button>
-    <input
-      type="{{ value?.type }}"
-      [placeholder]="value?.placeholder"
-      [formControlName]="value?.formControlName"
-      [hidden]="!value?.isVisible"
-    />
+<div class="user__container">
+  <div class="text__wrapper">
+    <h1 class="text__header">Edycja konta</h1>
   </div>
-  <button type="submit" class="submit">Save changes</button>
-</form>
+
+  <form
+    (ngSubmit)="submitForm()"
+    [formGroup]="form"
+    autocomplete="off"
+    class="container"
+  >
+    <div *ngFor="let value of properties" class="form-field__wrapper">
+      <div
+        [ngClass]="
+          !value?.isVisible
+            ? 'form-field__wrapper--hidden'
+            : 'form-field__wrapper--visible'
+        "
+      >
+        <mat-form-field appearance="outline">
+          <mat-label>{{ value?.label }}</mat-label>
+          <input
+            matInput
+            [placeholder]="value?.placeholder"
+            [formControlName]="value?.formControlName"
+            type="{{ value?.type }}"
+          />
+        </mat-form-field>
+      </div>
+
+      <button
+        (click)="reverse(value?.editingName)"
+        type="button"
+        class="text__button gradient-button gradient-button-bad"
+      >
+        Edytuj dane
+      </button>
+    </div>
+
+    <button type="submit" class="text__button gradient-button">
+      Zapisz zmiany
+    </button>
+  </form>
+</div>

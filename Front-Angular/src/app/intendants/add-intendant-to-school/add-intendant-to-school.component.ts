@@ -27,15 +27,15 @@ export class AddIntendantToSchoolComponent {
     if (this.addIntendantForm.invalid) {
       return;
     }
-    // @TODO zmienić typ
+
     this.intendantService
       .registerAdminToSchool(
-        this.addIntendantForm.get('email')?.value,
-        this.addIntendantForm.get('password')?.value
+        this.addIntendantForm.get('id_school')?.value,
+        this.intendantEmail
       )
       .subscribe({
         next: (response) => {
-          this.router.navigate(['/']);
+          // this.router.navigate(['/']);
         },
         error: (error) => {
           this.openErrorModal(error.error.detail);

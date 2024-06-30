@@ -50,6 +50,7 @@ const routes: Routes = [
     component: AttendanceListComponent,
     canActivate: [IntendantGuard],
   },
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({

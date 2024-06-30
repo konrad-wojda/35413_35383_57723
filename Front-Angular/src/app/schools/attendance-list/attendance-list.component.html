@@ -1,42 +1,69 @@
-Lista obecności
+<div class="side" [ngClass]="formattedDate ? 'fullscroll' : ''">
+  <div class="side--left">
+    <div class="header">
+      <div class="header__container">
+        <h1
+          class="text__header"
+          [ngClass]="formattedDate ? 'fullscroll__header' : ''"
+        >
+          Lista obecności
+          {{
+            !formattedDate
+              ? " - wybierz"
+              : attendanceList?.length
+              ? ""
+              : " - edytuj"
+          }}
+        </h1>
+        <div
+          class="text__container"
+          [ngClass]="formattedDate ? 'fullscroll__header' : ''"
+        >
+          <div *ngIf="!formattedDate" class="text__text">
+            Proszę uzupełnić interesującą datę
+          </div>
+          <mat-form-field appearance="outline" class="">
+            <mat-label>Wybierz datę</mat-label>
+            <input
+              matInput
+              [matDatepicker]="datepicker"
+              (dateChange)="onDateSelected($event)"
+            />
+            <mat-hint *ngIf="!formattedDate">DD.MM.RRRR</mat-hint>
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="datepicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #datepicker>
+              <mat-datepicker-actions>
+                <button mat-button matDatepickerCancel>Anuluj</button>
+                <button mat-raised-button color="primary" matDatepickerApply>
+                  Wyszukaj
+                </button>
+              </mat-datepicker-actions>
+            </mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
 
-<div *ngIf="!formattedDate">Proszę uzupełnić interesującą datę</div>
-<mat-form-field appearance="outline" class="">
-  <mat-label>Wybierz datę</mat-label>
-  <input
-    matInput
-    [matDatepicker]="datepicker"
-    (dateChange)="onDateSelected($event)"
-  />
-  <mat-hint>DD.MM.RRRR</mat-hint>
-  <mat-datepicker-toggle
-    matIconSuffix
-    [for]="datepicker"
-  ></mat-datepicker-toggle>
-  <mat-datepicker #datepicker>
-    <mat-datepicker-actions>
-      <button mat-button matDatepickerCancel>Anuluj</button>
-      <button mat-raised-button color="primary" matDatepickerApply>
-        Wyszukaj
-      </button>
-    </mat-datepicker-actions>
-  </mat-datepicker>
-</mat-form-field>
+    <div *ngIf="!!selectedDate">
+      <div *ngIf="attendanceList?.length; else emptyList">
+        <app-attendance-list-show
+          [formattedDate]="formattedDate"
+          [attendanceList]="attendanceList"
+          [displayedColumns]="displayedColumns"
+        />
+      </div>
 
-<div *ngIf="!!selectedDate">
-  <div *ngIf="attendanceList?.length; else emptyList">
-    <app-attendance-list-show
-      [formattedDate]="formattedDate"
-      [attendanceList]="attendanceList"
-      [displayedColumns]="displayedColumns"
-    />
+      <ng-template #emptyList>
+        <app-attendance-list-empty
+          [formattedDate]="formattedDate"
+          [displayedColumns]="displayedColumns"
+          [meals]="meals"
+        />
+      </ng-template>
+    </div>
   </div>
-
-  <ng-template #emptyList>
-    <app-attendance-list-empty
-      [formattedDate]="formattedDate"
-      [displayedColumns]="displayedColumns"
-      [meals]="meals"
-    />
-  </ng-template>
+  <div class="side--right"></div>
 </div>

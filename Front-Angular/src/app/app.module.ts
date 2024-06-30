@@ -19,7 +19,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AddIntendantToSchoolComponent } from './intendants/add-intendant-to-school/add-intendant-to-school.component';
 import { IntendantsComponent } from './intendants/intendants.component';
-import { IntendantComponent } from './intendants/intendants/intendant.component';
+import { IntendantComponent } from './intendants/intendant/intendant.component';
 import { LoginComponent } from './loging/login/login.component';
 import { RegisterComponent } from './loging/register/register.component';
 import { NavbarComponent } from './navbar/navbar.component';

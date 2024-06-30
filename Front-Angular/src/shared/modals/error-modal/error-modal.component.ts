@@ -13,6 +13,6 @@ export class ErrorModalComponent {
   ) {
     setTimeout(() => {
       this.dialogRef.close();
-    }, 5000);
+    }, 500000);
   }
 }

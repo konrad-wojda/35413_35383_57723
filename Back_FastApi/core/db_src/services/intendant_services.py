@@ -231,8 +231,8 @@ async def find_intendant(
                   .filter(UserModel.id_user == user.id_user)
                   .filter(IntendantModel.id_user == UserModel.id_user)
                   .all())
-        intendant_user = {}
 
+        intendant_user = {}
         for user, intendant in result:
             intendant_user = {**intendant.__dict__, **user.__dict__}
         intendant_user.pop('hashed_password')
@@ -249,12 +249,18 @@ async def create_intendant_school_admin(intendant: schemas.Intendant, db: _Sessi
     :return: data of created intendant
     """
     admin = await get_current_user(intendant.token, db)
-    if admin["is_admin"]:
-        print(intendant.id_user)
-        intendant_obj = IntendantModel(is_main_admin=True, id_user=intendant.id_user, id_school=intendant.id_school)
-        db.add(intendant_obj)
-        db.commit()
-        db.refresh(intendant_obj)
+    if not admin["is_admin"]:
+        raise HTTPException(status_code=404, detail="Token not exists or user is not admin")
 
-        return intendant_obj
-    raise HTTPException(status_code=404, detail="Token not exists or user is not admin")
+    user_id_row = db.query(UserModel.id_user).filter(UserModel.email == intendant.email).first()
+    user_id = user_id_row[0]
+
+    if not db.query(SchoolModel.id_school).filter(SchoolModel.id_school == intendant.id_school).first():
+        raise HTTPException(status_code=404, detail=f"School with id {intendant.id_school} not exists")
+
+    intendant_obj = IntendantModel(is_main_admin=True, id_user=user_id, id_school=intendant.id_school)
+    db.add(intendant_obj)
+    db.commit()
+    db.refresh(intendant_obj)
+
+    return intendant_obj

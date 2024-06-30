@@ -171,7 +171,6 @@ async def create_school_admin(form_data: schemas.Intendant, db: _Session = Depen
     :param db: Session of DB
     :return: text if operation is completed
     """
-    print(form_data.id_user, form_data.id_school)
-    return
-    # intendant = await services.create_intendant_school_admin(form_data, db)
-    # return dict(status_code=200, id_school=intendant.id_school)
+
+    intendant = await services.create_intendant_school_admin(form_data, db)
+    return dict(status_code=200, id_school=intendant.id_school)
