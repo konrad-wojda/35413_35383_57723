@@ -40,6 +40,10 @@ $my-theme: mat.define-light-theme(
   color: #fff;
   padding: 1.8rem 4.45rem;
   border: unset;
+
+  &-bad {
+    background: linear-gradient(90deg, #59e1ff, #9e51ff, #e751ff);
+  }
 }
 
 .text {
@@ -49,6 +53,7 @@ $my-theme: mat.define-light-theme(
 
   &__header {
     font-size: 5rem;
+    margin-top: 2rem;
   }
 
   &__input {
@@ -57,5 +62,14 @@ $my-theme: mat.define-light-theme(
 
   &__button {
     margin-top: 6.7rem;
+    font-size: 1.8rem;
+
+    &--closer {
+      margin-top: 2rem;
+    }
+  }
+
+  &__text {
+    font-size: 1.4rem;
   }
 }

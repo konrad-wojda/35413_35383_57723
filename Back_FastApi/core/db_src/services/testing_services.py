@@ -96,8 +96,8 @@ def add_student(db: _Session) -> None:
     """
     Testing purpose - quick setup. Saves students in DB
     """
-    first_names = ["Adam", "Robert", "Maria", "Anna"]
-    last_names = ["Nowak", "Rogacz", "Kot", "Gypsy Queen"]
+    first_names = ["Adam", "Robert", "Maria", "Anna Maria"]
+    last_names = ["Nowak", "Rogacz", "Kot", "Wesołowska"]
     classes = ["1a", "2b", "1b", "2c"]
     for index in range(len(last_names)):
         student_obj = StudentModel(

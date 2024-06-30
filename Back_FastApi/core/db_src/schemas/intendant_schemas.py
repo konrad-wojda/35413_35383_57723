@@ -41,4 +41,5 @@ class UserRest(_UserBase, BaseLogged):
 
 class Intendant(BaseLogged):
     id_user: Optional[int] = Field(None)
+    email: Optional[str] = Field(None)
     id_school: Optional[int] = Field(None)

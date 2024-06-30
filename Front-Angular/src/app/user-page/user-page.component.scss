@@ -1,0 +1,39 @@
+.user {
+  &__container {
+    text-align: center;
+    background-image: url("/assets/images/pink-back.png");
+    background-size: cover;
+    height: 100%;
+  }
+
+  &__field {
+    font-size: 1.3rem;
+  }
+
+  &__link {
+    display: block;
+    text-decoration: none;
+    font-size: 1.3rem;
+    width: max-content;
+    height: 2.2rem;
+
+    &__wrapper {
+      width: min-content;
+      margin: 0 auto;
+    }
+
+    &__container {
+      text-align: center;
+    }
+  }
+}
+
+.text {
+  &__wrapper {
+    padding-top: 2rem;
+  }
+
+  &__header {
+    margin: 0;
+  }
+}

@@ -1,18 +1,48 @@
-<h3>Dodaj nowego ucznia</h3>
+<div class="side">
+  <div class="side--left text__container">
+    <h1 class="text__header">Dodaj nowego ucznia</h1>
 
-<form (ngSubmit)="submitForm()" [formGroup]="form" autocomplete="off">
-  <label>Imię</label>
-  <input type="text" placeholder="Jan" formControlName="student_first_name" />
-  <br />
-  <label>Nazwisko</label>
-  <input
-    type="text"
-    placeholder="Kowalski"
-    formControlName="student_last_name"
-  />
-  <br />
-  <label>Klasa</label>
-  <input type="text" placeholder="1a" formControlName="student_class" />
-  <br />
-  <button type="submit">Dodaj</button>
-</form>
+    <form (ngSubmit)="submitForm()" [formGroup]="form" autocomplete="off">
+      <mat-form-field appearance="outline">
+        <mat-label>Imię</mat-label>
+        <input
+          matInput
+          placeholder="Jan"
+          formControlName="student_first_name"
+          type="text"
+          required
+        />
+      </mat-form-field>
+      <br />
+
+      <mat-form-field appearance="outline">
+        <mat-label>Nazwisko</mat-label>
+        <input
+          matInput
+          placeholder="Kowalski"
+          formControlName="student_last_name"
+          type="text"
+          required
+        />
+      </mat-form-field>
+      <br />
+
+      <mat-form-field appearance="outline">
+        <mat-label>Klasa</mat-label>
+        <input
+          matInput
+          placeholder="1a"
+          formControlName="student_class"
+          type="text"
+          required
+        />
+      </mat-form-field>
+      <br />
+      <button type="submit" class="text__button gradient-button">
+        Dodaj ucznia
+      </button>
+    </form>
+  </div>
+
+  <div class="side--right"></div>
+</div>

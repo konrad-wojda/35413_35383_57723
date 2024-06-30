@@ -1,6 +1,7 @@
 <div class="side">
   <div class="side--left text__container">
     <h1 class="text__header">Dodaj szkołę</h1>
+
     <form
       (ngSubmit)="submitForm()"
       [formGroup]="form"
@@ -8,15 +9,28 @@
       class="container"
     >
       <div *ngFor="let value of properties">
-        <label>{{ value?.label }}</label>
-        <input
-          class="text__input"
-          type="{{ value?.type }}"
-          [placeholder]="value?.placeholder"
-          [formControlName]="value?.formControlName"
-        />
+        <div
+          [ngClass]="
+            !value?.isVisible
+              ? 'form-field__wrapper--hidden'
+              : 'form-field__wrapper--visible'
+          "
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>{{ value?.label }}</mat-label>
+            <input
+              matInput
+              [placeholder]="value?.placeholder"
+              [formControlName]="value?.formControlName"
+              type="{{ value?.type }}"
+            />
+          </mat-form-field>
+        </div>
       </div>
-      <button type="submit" class="text__button gradient-button">Dodaj</button>
+
+      <button type="submit" class="text__button gradient-button">
+        Zatwierdź
+      </button>
     </form>
   </div>
 

@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserDataResponse } from 'src/shared/models/intendant/user.models';
 import { AuthService } from 'src/shared/services/api/auth.service';
-import { UserService } from 'src/shared/services/api/intendants/user.service';
 import { UserStateService } from 'src/shared/services/states/UserStateService';
 @Component({
   selector: 'app-user-details',
@@ -97,7 +96,7 @@ export class UserDetailsComponent implements OnInit {
         formControlName: 'email',
       },
       {
-        label: 'First name',
+        label: 'Imię',
         editingName: 'editingFirst',
         isVisible: false,
         type: 'text',
@@ -105,7 +104,7 @@ export class UserDetailsComponent implements OnInit {
         formControlName: 'first_name',
       },
       {
-        label: 'Last name',
+        label: 'Nazwisko',
         editingName: 'editingLast',
         isVisible: false,
         type: 'text',
@@ -113,7 +112,7 @@ export class UserDetailsComponent implements OnInit {
         formControlName: 'last_name',
       },
       {
-        label: 'Password',
+        label: 'Hasło',
         editingName: 'hashed_password',
         isVisible: false,
         type: 'password',

@@ -1,3 +1,46 @@
-table {
-  width: 100%;
+.side {
+  display: grid;
+  grid-template-columns: 1fr 0.8fr;
+  height: 100%;
+
+  &--left,
+  &--right {
+    display: inline-block;
+  }
+  &--right {
+    background-image: url("/assets/images/citron.png");
+  }
+}
+
+.header {
+  text-align: center;
+
+  &__container {
+    text-align: center;
+  }
+}
+
+.fullscroll {
+  grid-template-columns: 1fr 0;
+  padding: 0 2rem;
+  position: relative;
+  background-image: url("/assets/images/pink-back.png");
+
+  &__header {
+    display: inline-block;
+    margin: 2rem;
+    height: 7.8rem;
+    float: left;
+  }
+}
+
+.text {
+  &__header {
+    display: inline-block;
+    height: 7.8rem;
+  }
+
+  &__text {
+    margin-bottom: 1rem;
+  }
 }

@@ -8,6 +8,13 @@
     display: inline-block;
   }
   &--right {
-    background-color: black;
+    background-image: url("/assets/images/abstract-liquid.png");
+  }
+}
+
+.text {
+  &__button {
+    margin-left: 2rem;
+    margin-top: 0;
   }
 }
