@@ -37,7 +37,7 @@ def is_valid_password(password: str) -> bool:
     :return: True if password have good minimal length and regex pattern / False if regex is not matching
     """
     password_pattern = (fr"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{{"
-                        fr"{getenv_int('MIN_PASSWORD_LEN')},}}$")
+                        fr"{getenv_int('MIN_PASSWORD_LEN')},{getenv_int('MAX_PASSWORD_LEN')}}}$")
 
     return True if re.match(password_pattern, str(password)) else False
 

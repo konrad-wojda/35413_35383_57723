@@ -29,4 +29,5 @@ JWT_SECRET_LITE = nothingspecialtogetitrightlite </br>
 DB_LITE_URI=sqlite:///./database.db </br>
 ################### </br>
 MIN_PASSWORD_LEN = 8 </br>
+MAX_PASSWORD_LEN = 80 </br>
 MAX_EMAIL_LEN = 60 </br>
