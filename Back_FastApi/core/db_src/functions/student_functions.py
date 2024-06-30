@@ -34,10 +34,10 @@ def attendances_into_json(data: list):
     print(json_output)
 
 
-def format_presence(person: list[list], ref: dict) -> list[str]:
+def format_presence(person: list[str], ref: dict) -> list[str]:
     """
     Helper for changing ids of meal type into readable text
-    :param person:
+    :param person: list of person and list of their meals
     :param ref: names of meal types connected with ids
     :return: list of text in csv format
     """
@@ -48,10 +48,10 @@ def format_presence(person: list[list], ref: dict) -> list[str]:
     return presence
 
 
-def format_person(person: list[list], ref: dict) -> str:
+def format_person(person: list[str], ref: dict) -> str:
     """
     Helper for converting SQL response into CSV text
-    :param person:
+    :param person: list of person and list of their meals
     :param ref: names of meal types connected with ids
     :return: text in csv format
     """

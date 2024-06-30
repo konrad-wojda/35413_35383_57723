@@ -17,7 +17,6 @@ def encode_jwt(user: JwtPayload) -> str:
     :param user: logged user data
     :return: JWT token
     """
-    print("JWT_SECRET", JWT_SECRET)
     return jwt.encode({"id_user": user['id_user'], "email": user['email']}, JWT_SECRET)
 
 
